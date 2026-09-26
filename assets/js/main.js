@@ -66,6 +66,32 @@ const plates = {
     ${[0,1,2,3,4,5,6,7,8,9].map(i=>`<rect x="690" y="${80+i*42}" width="${[128,96,140,110,84,132,100,146,92,120][i]}" height="7" rx="3.5" class="${i%4===0?'fd':'fs'}"/>`).join('')}
   `),
 
+  /* 04 Airline booking — search, fares, seat map */
+  airline: () => svg(`
+    ${phone(90, 50, 230, 460)}
+    <rect x="112" y="96" width="186" height="118" rx="10" class="fl"/><rect x="112" y="96" width="186" height="118" rx="10" class="ln"/>
+    <rect x="128" y="114" width="40" height="14" rx="3" class="fd"/><rect x="242" y="114" width="40" height="14" rx="3" class="fd"/>
+    <path d="M148 150 Q205 112 262 150" class="acs" fill="none" stroke-dasharray="4 5"/>
+    <circle cx="148" cy="150" r="4" class="ac"/><circle cx="262" cy="150" r="4" class="ac"/>
+    <rect x="128" y="176" width="70" height="6" rx="3" class="fs"/><rect x="212" y="176" width="70" height="6" rx="3" class="fs"/>
+    <rect x="128" y="190" width="46" height="6" rx="3" class="fl"/><rect x="212" y="190" width="46" height="6" rx="3" class="fl"/>
+    ${[0,1,2].map(i=>`<rect x="112" y="${234+i*66}" width="186" height="54" rx="8" class="${i===1?'fs':'fl'}"/><rect x="112" y="${234+i*66}" width="186" height="54" rx="8" class="${i===1?'acs':'ln'}"/>
+      <rect x="126" y="${248+i*66}" width="${[64,52,72][i]}" height="7" rx="3.5" class="fd"/><rect x="126" y="${264+i*66}" width="${[96,84,104][i]}" height="5" rx="2.5" class="fs"/>
+      <rect x="244" y="${250+i*66}" width="40" height="10" rx="3" class="${i===1?'ac':'fd'}"/>`).join('')}
+    <rect x="112" y="452" width="186" height="36" rx="18" class="fd"/>
+    <rect x="370" y="50" width="220" height="460" rx="4" class="fl"/><rect x="370" y="50" width="220" height="460" rx="4" class="ln"/>
+    <path d="M410 96 Q480 58 550 96" class="ln" fill="none"/>
+    ${Array.from({length:10},(_,r)=>[0,1,2,3,4,5].map(c=>{const x=398+c*28+(c>2?20:0),y=118+r*36,taken=(r*7+c*3)%5===0,pick=r===4&&c===4;return `<rect x="${x}" y="${y}" width="20" height="24" rx="5" class="${pick?'ac':taken?'fd':'ln'}"/>`}).join('')).join('')}
+    <rect x="630" y="50" width="210" height="220" rx="4" class="ln"/>
+    ${bars(652, 78, 4, i => [120,96,140,84][i], 7, 22)}
+    <rect x="652" y="178" width="166" height="1" class="fs"/>
+    <rect x="652" y="196" width="60" height="9" rx="3" class="fd"/><rect x="760" y="194" width="58" height="12" rx="3" class="ac"/>
+    <rect x="652" y="226" width="166" height="26" rx="13" class="fd"/>
+    <rect x="630" y="300" width="210" height="210" rx="4" class="ln"/><rect x="630" y="300" width="210" height="64" rx="4" class="fl"/>
+    <rect x="652" y="322" width="80" height="8" rx="4" class="fd"/><rect x="652" y="340" width="120" height="6" rx="3" class="fs"/>
+    ${bars(652, 390, 5, i => [150,110,132,90,120][i], 6, 22)}
+  `),
+
   /* shared — flow diagram */
   flow: (steps) => svg(`
     ${steps.map((s, i) => {
@@ -204,6 +230,43 @@ const projects = [
   designArt:['khalti', ['Open','Choose','Enter','Confirm','Receipt'], 'system'],
   outcome:{stats:[{v:'40%', l:'increase in user engagement'}], note:'Figure as reported on prepesh.com.'},
   reflection:'Designing payments taught me that confidence is a feature. People don’t reread a screen when they trust what the last one did.'
+},
+{
+  /* DRAFT — written from a short brief; replace the name, company, year and every claim below with the real project details */
+  num:'04', id:'airline', name:'Airline Booking', category:'Travel', discipline:'Product design',
+  role:'Product Designer', company:'', year:'',
+  desc:'Flight search, fares, seats and checkout for an airline’s app and website.',
+  art:'airline',
+  tagline:'Booking a flight without the fare-rules homework.',
+  overview:'A booking experience for an airline across mobile app and website: searching for flights, comparing fares, choosing seats and extras, and paying. I designed the end-to-end booking flow, from the first search to the confirmation screen.',
+  challenge:'Airline booking asks people to make several expensive decisions in a row, each with rules they can’t see. Two fares that look alike differ on baggage, changes and refunds. Seats and extras arrive after the price has already been shown, so the total keeps moving. People often compare prices across several sites before booking, and many come back more than once before paying. Every step has to answer “what am I getting and what will it cost” without turning the flow into a comparison chart.',
+  constraints:[
+    {b:'Fare rules', t:'Baggage, change and refund terms differ by fare family and route.'},
+    {b:'Inventory', t:'Seat availability and prices can change between search and payment.'},
+    {b:'Two platforms', t:'The same flow has to hold on a small phone and a desktop browser.'},
+    {b:'Price shopping', t:'People leave to compare elsewhere and return mid-booking.'}
+  ],
+  approach:[
+    {t:'Search', d:'Made the search form fit how people plan: flexible dates, recent routes remembered, and results that show total price and duration first.'},
+    {t:'Fare choice', d:'Turned fare families into a side-by-side choice that names what each one includes instead of listing rules to decode.'},
+    {t:'Seats and extras', d:'Kept seat selection and add-ons optional and skippable, with the running total always visible.'},
+    {t:'Checkout', d:'Designed passenger details, payment and confirmation to be short, recoverable and clear about what happens next.'}
+  ],
+  decisions:[
+    {d:'Show the total, not the base fare',
+     why:'A low headline fare that grows by the payment step erodes trust at the exact moment the person has to commit. Showing the all-in price from the results list onward means the number they chose is the number they pay.',
+     trade:'Prices look higher in results than on sites that show base fares, so the value has to be clear from what each fare includes.'},
+    {d:'Name fare differences in plain language',
+     why:'People choose a fare by what they might need later: a checked bag, a date change, a refund. Listing those outcomes against each fare answers the real question faster than rule codes and fine print.',
+     trade:'Each fare needs plain-language copy that stays accurate as the rules change.'},
+    {d:'Keep the booking when people step away',
+     why:'Travellers often compare prices elsewhere and come back. Holding their search, fare and seat choices, and saying clearly when a price is only held for a limited time, lets them pick up where they left off.',
+     trade:'Held prices expire, so the flow has to handle a changed price gracefully when they return.'}
+  ],
+  designCaps:['Search, fare list and seat map','Booking flow from search to confirmation','Shared components across app and website'],
+  designArt:['airline', ['Search','Choose fare','Seats & extras','Details','Pay'], 'system'],
+  outcome:{note:'Outcome details to be added.'},
+  reflection:'Most of the work in a booking flow is keeping promises: the price, the seat and the rules the person saw at the start should still be true when they pay.'
 }
 ];
 
