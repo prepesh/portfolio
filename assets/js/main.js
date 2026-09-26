@@ -285,7 +285,8 @@ requestAnimationFrame(()=>document.getElementById('hero').classList.add('ready')
 
 /* nav state */
 const nav = document.getElementById('nav');
-const onScroll = () => nav.classList.toggle('is-stuck', window.scrollY > 24);
+/* while an overlay locks the page, scrollY reads 0; keep the nav as it was */
+const onScroll = () => { if(!document.body.classList.contains('is-locked')) nav.classList.toggle('is-stuck', window.scrollY > 24); };
 addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
 /* scroll reveal */
@@ -510,14 +511,60 @@ csInner.addEventListener('click', e=>{
 csClose.addEventListener('click', closeCase);
 cs.querySelector('[data-close]').addEventListener('click', closeCase);
 
-/* keyboard: ESC closes; Tab is trapped inside the overlay */
+/* ── RESUME POPUP ── */
+const rs = document.getElementById('rs'), rsFrame = document.getElementById('rs-frame'),
+      rsEmpty = document.getElementById('rs-empty'), rsExt = document.getElementById('rs-ext');
+let rsLastFocus = null, rsY = 0;
+
+/* turn a Drive share link (…/file/d/ID/view or …?id=ID) into its embeddable preview URL */
+const drivePreview = url => {
+  const id = (url.match(/\/d\/([\w-]+)/) || url.match(/[?&]id=([\w-]+)/) || [])[1];
+  return id ? `https://drive.google.com/file/d/${id}/preview` : url;
+};
+
+function openResume(url){
+  const has = !!url && url !== '#';
+  rsLastFocus = document.activeElement;
+  rsFrame.hidden = !has; rsEmpty.hidden = has; rsExt.hidden = !has;
+  if(has){
+    rsExt.href = url;
+    const src = drivePreview(url);
+    if(rsFrame.getAttribute('src') !== src) rsFrame.src = src;
+  }
+  rs.setAttribute('aria-hidden','false');
+  rs.classList.add('is-open');
+  rsY = window.scrollY;
+  document.body.style.top = `-${rsY}px`;
+  document.body.classList.add('is-locked');
+  setTimeout(()=>rs.querySelector('.cs__close').focus({preventScroll:true}), 60);
+}
+
+function closeResume(){
+  if(!rs.classList.contains('is-open')) return;
+  rs.classList.remove('is-open');
+  rs.setAttribute('aria-hidden','true');
+  document.body.classList.remove('is-locked');
+  document.body.style.top = '';
+  window.scrollTo(0, rsY);
+  if(rsLastFocus) rsLastFocus.focus({preventScroll:true});
+}
+
+document.querySelectorAll('[data-resume]').forEach(a=>a.addEventListener('click', e=>{
+  e.preventDefault();
+  openResume(a.getAttribute('href'));
+}));
+rs.querySelectorAll('[data-rs-close]').forEach(el=>el.addEventListener('click', closeResume));
+
+/* keyboard: ESC closes; Tab is trapped inside whichever overlay is open */
 addEventListener('keydown', e=>{
   if(e.key === 'Escape'){
     if(document.body.classList.contains('menu-open')) return setMenu(false);
+    if(rs.classList.contains('is-open')) return closeResume();
     if(cs.classList.contains('is-open')) return closeCase();
   }
-  if(e.key === 'Tab' && cs.classList.contains('is-open')){
-    const f = cs.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  const overlay = rs.classList.contains('is-open') ? rs : cs.classList.contains('is-open') ? cs : null;
+  if(e.key === 'Tab' && overlay){
+    const f = [...overlay.querySelectorAll('button, [href], iframe, input, select, textarea, [tabindex]:not([tabindex="-1"])')].filter(el=>el.offsetParent);
     if(!f.length) return;
     const first = f[0], last = f[f.length - 1];
     if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }

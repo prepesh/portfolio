@@ -342,6 +342,31 @@ figcaption{margin-top:10px;font-size:13px;color:var(--ink-3)}
 .cs__next-lbl{font-size:12.5px;color:var(--ink-3)}
 
 /* ─────────────────────────────────────────────
+   RESUME POPUP
+   ───────────────────────────────────────────── */
+.rs{position:fixed;inset:0;z-index:130;display:grid;place-items:center;padding:clamp(12px,3vw,40px);visibility:hidden;pointer-events:none}
+.rs.is-open{visibility:visible;pointer-events:auto}
+.rs__scrim{position:absolute;inset:0;background:var(--scrim);opacity:0;transition:opacity .4s var(--ease-2)}
+.rs.is-open .rs__scrim{opacity:1}
+.rs__panel{
+  position:relative;width:min(920px,100%);height:min(1180px,100%);
+  display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--rule-2);border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.35);
+  opacity:0;transform:translateY(18px) scale(.985);transition:opacity .4s var(--ease-2),transform .55s var(--ease);
+}
+.rs.is-open .rs__panel{opacity:1;transform:none}
+.rs__bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 12px 12px 22px;border-bottom:1px solid var(--rule-2)}
+.rs__title{font-size:14px;font-weight:500;letter-spacing:-.02em}
+.rs__actions{display:flex;align-items:center;gap:14px}
+.rs__ext{font-size:13px;color:var(--ink-2);transition:color .3s}
+.rs__ext:hover{color:var(--ink)}
+.rs__ext[hidden]{display:none}
+.rs__body{position:relative;flex:1;background:var(--paper-2)}
+.rs__frame{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--paper-2)}
+.rs__empty{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;font-family:var(--f-text);font-weight:300;font-size:18px;color:var(--ink-2)}
+.rs__empty[hidden],.rs__frame[hidden]{display:none}
+
+/* ─────────────────────────────────────────────
    RESPONSIVE
    ───────────────────────────────────────────── */
 @media (max-width:1240px){
@@ -392,6 +417,8 @@ figcaption{margin-top:10px;font-size:13px;color:var(--ink-3)}
   .xp__role{grid-column:1;grid-row:3}
   .xp__sign{grid-column:2;grid-row:1}
   .esc-hint{display:none}
+  .rs{padding:0}
+  .rs__panel{border-radius:0;border:0;height:100%}
   .caps{gap:0 22px}
 }
 

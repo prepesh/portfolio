@@ -48,6 +48,10 @@ Colours, type and spacing are set as CSS variables at the top of `assets/css/sty
 - **Case studies:** check the "Key decisions" in each case study and confirm or correct them so they match the work you actually did.
 - **Missing details:** Ridemio and NexTeno have no company or year set. Fill in `company` and `year` in `projects` if you want them shown.
 
+## Resume popup
+
+The "Resume" link in Contact opens the resume in a popup on the page. Set its `href` in `index.html` to the Google Drive share link (for example `https://drive.google.com/file/d/…/view`), and share the file in Drive as **Anyone with the link → Viewer**, or visitors will see a Google sign-in screen instead of the resume. Until a link is set, the popup shows a short message asking visitors to email.
+
 ## Notes
 
 - Fonts (Schibsted Grotesk and Newsreader) load from Google Fonts.
