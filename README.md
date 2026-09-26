@@ -44,12 +44,9 @@ Colours, type and spacing are set as CSS variables at the top of `assets/css/sty
 
 ## Before going live
 
-- **Email:** the contact email is a placeholder (`hello@prepesh.com`) in `index.html`.
-- **LinkedIn:** the LinkedIn link points to `#` in `index.html`.
 - **Project visuals:** these are placeholder drawings. To use real screens, return an `<img src="…" alt="…" loading="lazy">` from the matching function in `plates` in `main.js`.
 - **Case studies:** check the "Key decisions" in each case study and confirm or correct them so they match the work you actually did.
 - **Missing details:** Ridemio, NexTeno and Deerhold have no company or year set. Fill in `company` and `year` in `projects` if you want them shown.
-- **Theme choice:** the theme choice isn't remembered between visits. Saving it to `localStorage` in the theme-toggle code in `main.js` would fix that.
 
 ## Notes
 
