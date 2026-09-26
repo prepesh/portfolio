@@ -1,14 +1,11 @@
 /* ═══════════════════════════════════════════════════════════
    1. VISUAL FRAMEWORK — schematic placeholder plates
    Each plate is inline SVG using currentColor, so it themes
-   automatically. To use real screens, replace the returned
+   automatically; its classes are styled under .plate-svg in style.css. To use real screens, replace the returned
    string with:  <img src="…" alt="…" loading="lazy" width height>
    ═══════════════════════════════════════════════════════════ */
 const svg = (inner, w = 900, h = 560) =>
-  `<svg viewBox="0 0 ${w} ${h}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic placeholder for project visual">
-   <style>.ln{stroke:currentColor;stroke-width:1.2;opacity:.34}.lnf{stroke:currentColor;stroke-width:1.2;opacity:.62}
-   .fl{fill:currentColor;opacity:.06}.fs{fill:currentColor;opacity:.14}.fd{fill:currentColor;opacity:.30}
-   .ac{fill:var(--accent);opacity:.92}.acs{stroke:var(--accent);stroke-width:1.7;opacity:.92}</style>${inner}</svg>`;
+  `<svg class="plate-svg" viewBox="0 0 ${w} ${h}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic placeholder for project visual">${inner}</svg>`;
 
 const bars = (x, y, n, w, h = 6, gap = 14, cls = 'fs') =>
   Array.from({length: n}, (_, i) =>
@@ -267,7 +264,8 @@ xpList.innerHTML = experience.map((x,i)=>`
     <h3><button class="xp__btn" aria-expanded="false" aria-controls="xp-p-${i}">
       <span class="xp__co">${esc(x.co)}</span>
       <span class="xp__role">${esc(x.role)}</span>
-      <span class="xp__date">${esc(x.date)}<span class="xp__sign" aria-hidden="true"></span></span>
+      <span class="xp__date">${esc(x.date)}</span>
+      <span class="xp__sign" aria-hidden="true"></span>
     </button></h3>
     <div class="xp__panel" id="xp-p-${i}"><div class="xp__body">
       <p>${esc(x.body)}</p>
