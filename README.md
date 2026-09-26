@@ -46,10 +46,10 @@ Colours, type and spacing are set as CSS variables at the top of `assets/css/sty
 
 - **Project visuals:** these are placeholder drawings. To use real screens, return an `<img src="…" alt="…" loading="lazy">` from the matching function in `plates` in `main.js`.
 - **Case studies:** check the "Key decisions" in each case study and confirm or correct them so they match the work you actually did.
-- **Missing details:** Ridemio, NexTeno and Deerhold have no company or year set. Fill in `company` and `year` in `projects` if you want them shown.
+- **Missing details:** Ridemio and NexTeno have no company or year set. Fill in `company` and `year` in `projects` if you want them shown.
 
 ## Notes
 
 - Fonts (Schibsted Grotesk and Newsreader) load from Google Fonts.
 - The page respects `prefers-reduced-motion` and `prefers-color-scheme`.
-- Case studies can be linked to directly with `#ridemio`, `#nexteno`, `#khalti`, `#gurkha`, `#recon` and `#deerhold`.
+- Case studies can be linked to directly with `#ridemio`, `#nexteno` and `#khalti`.
