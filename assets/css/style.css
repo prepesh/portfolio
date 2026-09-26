@@ -169,7 +169,7 @@ section{scroll-margin-top:80px}
 [data-reveal].is-in{opacity:1;transform:none}
 
 /* ── WORK INDEX (full-width record table) ── */
-.index{padding-top:6px}
+.index{padding-top:6px;position:relative}
 .index__labels,.row{
   display:grid;
   grid-template-columns:40px minmax(0,1.5fr) minmax(0,1fr) minmax(0,.62fr) minmax(0,.62fr) 96px 148px;
@@ -210,7 +210,8 @@ section{scroll-margin-top:80px}
 .row__thumb svg{display:block;width:100%;height:100%;color:var(--ink);transition:transform .7s var(--ease)}
 .row.is-active .row__thumb svg{transform:scale(1.05)}
 
-.index__hint{margin-top:18px;font-size:11.5px;color:var(--ink-3);letter-spacing:.04em;display:flex;align-items:center;gap:5px;flex-wrap:wrap;opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .35s var(--ease-2),transform .45s var(--ease)}
+/* keyboard-only hint: sits in the section padding so it adds no height while hidden */
+.index__hint{position:absolute;top:100%;left:0;margin-top:18px;font-size:11.5px;color:var(--ink-3);letter-spacing:.04em;display:flex;align-items:center;gap:5px;flex-wrap:wrap;opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .35s var(--ease-2),transform .45s var(--ease)}
 .index.is-kb .index__hint{opacity:1;transform:none}
 kbd{font:inherit;font-size:10.5px;border:1px solid var(--rule);border-radius:3px;padding:2px 5px;color:var(--ink-2)}
 
