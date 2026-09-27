@@ -56,4 +56,4 @@ The "Resume" link in Contact opens the resume in a popup on the page. Set its `h
 
 - Fonts (Schibsted Grotesk and Newsreader) load from Google Fonts.
 - The page respects `prefers-reduced-motion` and `prefers-color-scheme`.
-- Case studies can be linked to directly with `#ridemio`, `#nexteno`, `#khalti` and `#airline`.
+- Case studies can be linked to directly with `#ridemio`, `#nexteno`, `#khalti` and `#himal`.

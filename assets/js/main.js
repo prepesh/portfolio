@@ -66,7 +66,7 @@ const plates = {
     ${[0,1,2,3,4,5,6,7,8,9].map(i=>`<rect x="690" y="${80+i*42}" width="${[128,96,140,110,84,132,100,146,92,120][i]}" height="7" rx="3.5" class="${i%4===0?'fd':'fs'}"/>`).join('')}
   `),
 
-  /* 04 Airline booking — search, fares, seat map */
+  /* 04 HIMĀL — airline app: search, fares, seat map */
   airline: () => svg(`
     ${phone(90, 50, 230, 460)}
     <rect x="112" y="96" width="186" height="118" rx="10" class="fl"/><rect x="112" y="96" width="186" height="118" rx="10" class="ln"/>
@@ -232,41 +232,45 @@ const projects = [
   reflection:'Designing payments taught me that confidence is a feature. People don’t reread a screen when they trust what the last one did.'
 },
 {
-  /* DRAFT — written from a short brief; replace the name, company, year and every claim below with the real project details */
-  num:'04', id:'airline', name:'Airline Booking', category:'Travel', discipline:'Product design',
-  role:'Product Designer', company:'', year:'',
-  desc:'Flight search, fares, seats and checkout for an airline’s app and website.',
+  num:'04', id:'himal', name:'HIMĀL', category:'Travel', discipline:'Product design',
+  role:'Product Designer', company:'Self-initiated concept', year:'2026',
+  desc:'Airline app concept, from first open to boarding.',
   art:'airline',
-  tagline:'Booking a flight without the fare-rules homework.',
-  overview:'A booking experience for an airline across mobile app and website: searching for flights, comparing fares, choosing seats and extras, and paying. I designed the end-to-end booking flow, from the first search to the confirmation screen.',
-  challenge:'Airline booking asks people to make several expensive decisions in a row, each with rules they can’t see. Two fares that look alike differ on baggage, changes and refunds. Seats and extras arrive after the price has already been shown, so the total keeps moving. People often compare prices across several sites before booking, and many come back more than once before paying. Every step has to answer “what am I getting and what will it cost” without turning the flow into a comparison chart.',
+  tagline:'An airline app that asks for nothing until it has earned it.',
+  overview:'HIMĀL is a concept app for a Kathmandu-based airline that I designed on my own, from research framing to prototype and design system. It covers guest and member flows from booking to boarding, plus corporate travel: 150+ screens and states in one clickable prototype.',
+  challenge:'The brief asked for every screen and every state. That’s a list, not a point of view. So before drawing anything I marked the moments where an airline app takes something from you: your data, your money, or your certainty that you’re on the plane. There were five: the first minute, when the app asks before it gives; the price, when the number you see isn’t the number you pay; the gap between paying and having a ticket; changing or cancelling; and business travel, where two people with different jobs share one app. Everything still had to work, but those five got most of my attention.',
   constraints:[
-    {b:'Fare rules', t:'Baggage, change and refund terms differ by fare family and route.'},
-    {b:'Inventory', t:'Seat availability and prices can change between search and payment.'},
-    {b:'Two platforms', t:'The same flow has to hold on a small phone and a desktop browser.'},
-    {b:'Price shopping', t:'People leave to compare elsewhere and return mid-booking.'}
+    {b:'Guest first', t:'Search, compare and check a flight without an account. Sign-in only when it’s truly needed.'},
+    {b:'Honest price', t:'Fares include taxes and a checked bag. Extras show their price before you tap.'},
+    {b:'Named states', t:'Every in-between state says whether your money has gone and whether you have a seat.'},
+    {b:'No dead ends', t:'If a button exists, the screen behind it exists, including empty, loading and error.'}
   ],
   approach:[
-    {t:'Search', d:'Made the search form fit how people plan: flexible dates, recent routes remembered, and results that show total price and duration first.'},
-    {t:'Fare choice', d:'Turned fare families into a side-by-side choice that names what each one includes instead of listing rules to decode.'},
-    {t:'Seats and extras', d:'Kept seat selection and add-ons optional and skippable, with the running total always visible.'},
-    {t:'Checkout', d:'Designed passenger details, payment and confirmation to be short, recoverable and clear about what happens next.'}
+    {t:'Rules before screens', d:'Wrote four rules first (the four above) so I had something to argue with whenever a screen got complicated.'},
+    {t:'Two brands, tested on dull screens', d:'Built two brand directions as design tokens and kept both working on the seat map, the fare breakdown and the declined-payment screen, not just on a moodboard.'},
+    {t:'Prototype first', d:'Worked in a clickable prototype from day one, building journeys in order of risk: booking and payment first, then trips, loyalty and corporate travel.'},
+    {t:'Tap every button', d:'Went through the app button by button asking “what happens when I tap this?”, then built what was missing. Most of the best details came from this pass.'},
+    {t:'Library and handoff', d:'Figma library with 38 variables, 12 text styles and 11 core components, plus the onboarding flow as 26 editable frames.'}
   ],
   decisions:[
-    {d:'Show the total, not the base fare',
-     why:'A low headline fare that grows by the payment step erodes trust at the exact moment the person has to commit. Showing the all-in price from the results list onward means the number they chose is the number they pay.',
-     trade:'Prices look higher in results than on sites that show base fares, so the value has to be clear from what each fare includes.'},
-    {d:'Name fare differences in plain language',
-     why:'People choose a fare by what they might need later: a checked bag, a date change, a refund. Listing those outcomes against each fare answers the real question faster than rule codes and fine print.',
-     trade:'Each fare needs plain-language copy that stays accurate as the rules change.'},
-    {d:'Keep the booking when people step away',
-     why:'Travellers often compare prices elsewhere and come back. Holding their search, fare and seat choices, and saying clearly when a price is only held for a limited time, lets them pick up where they left off.',
-     trade:'Held prices expire, so the flow has to handle a changed price gracefully when they return.'}
+    {d:'Show the all-in price first',
+     why:'Most airline apps show a low base fare and add the rest over four screens. It looks cheaper on the list and feels dishonest at payment. Here the first number already includes taxes and a bag, and the fare screen breaks that same total down, so nothing new appears when you pay.',
+     trade:'The first price looks higher than a competitor’s headline fare.'},
+    {d:'Payment isn’t a ticket',
+     why:'A card payment and a ticket are two separate systems, and tickets can take minutes. Instead of one spinner, each step between “Pay” and a boarding pass gets its own screen that answers two questions: has my money gone, and do I have a seat? A declined card says “No money has left your account” and how long the fare is still held.',
+     trade:'Far more states to design and write than a simple success or error.'},
+    {d:'Ask for the account last',
+     why:'The first onboarding was four slides and a sign-in wall. I rebuilt it as a ladder of small asks, where each step costs a little more and visibly changes the app. The account comes last, and “Continue as a guest” gets the same weight as sign-in. Returning users skip onboarding and see their next trip.',
+     trade:'Fewer people may sign up early. The bet is that more sign up when they book.'},
+    {d:'Two dashboards for corporate travel',
+     why:'Travellers and travel managers first shared one dashboard. It looked tidy and was wrong: showing a traveller company spend is a permissions leak. They now get separate views, and approvals come with a 10-minute undo, written on the success screen.',
+     trade:'Two layouts to maintain, and a third role (the travel arranger) still to design.'}
   ],
-  designCaps:['Search, fare list and seat map','Booking flow from search to confirmation','Shared components across app and website'],
-  designArt:['airline', ['Search','Choose fare','Seats & extras','Details','Pay'], 'system'],
-  outcome:{note:'Outcome details to be added.'},
-  reflection:'Most of the work in a booking flow is keeping promises: the price, the seat and the rules the person saw at the start should still be true when they pay.'
+  designCaps:['Search, fare list and seat map','From booking to boarding pass','Guest and member flows across the five tabs'],
+  designArt:['airline', ['Search','Fare','Seats','Pay','Ticket'], 'system'],
+  outcome:{stats:[{v:'150+', l:'screens and states in one clickable prototype'},{v:'2', l:'brand directions carried through every screen'},{v:'0', l:'dead-end buttons, checked after each round'}],
+    note:'A concept, not yet tested with travellers, so there are no outcome metrics. Next I’d test the onboarding order, whether people can read the “paid, not ticketed” screen, and whether the all-in price scares people off at the results list.'},
+  reflection:'I’d pick the brand sooner, since keeping both working doubled the checking on every screen. And I’d do the button-by-button pass after each journey instead of saving it for the end, because that’s where the most interesting problems were.'
 }
 ];
 
