@@ -266,8 +266,33 @@ const projects = [
      why:'Travellers and travel managers first shared one dashboard. It looked tidy and was wrong: showing a traveller company spend is a permissions leak. They now get separate views, and approvals come with a 10-minute undo, written on the success screen.',
      trade:'Two layouts to maintain, and a third role (the travel arranger) still to design.'}
   ],
-  designCaps:['Search, fare list and seat map','From booking to boarding pass','Guest and member flows across the five tabs'],
-  designArt:['airline', ['Search','Fare','Seats','Pay','Ticket'], 'system'],
+  /* real screens from the prototype, in assets/img/himal/ */
+  thumb:['home','results','boarding-pass'],
+  gallery:[
+    {t:'Onboarding', d:'Small asks that each change the app, with the account asked last.', shots:[
+      ['onboarding-language','Language, with each option in its own script'],
+      ['onboarding-notifications','Alerts explained before the system prompt'],
+      ['onboarding-account','Guest gets the same weight as sign-in'],
+      ['returning-user','Returning users skip straight to their trip']]},
+    {t:'Booking', d:'The first price already includes taxes and a bag.', shots:[
+      ['home','Home, as a guest'],
+      ['results','All-in fares, with baggage on every card'],
+      ['fare-details','The same total, itemised'],
+      ['seat-map','Seat map with cabin zones and a legend']]},
+    {t:'Paying and ticketing', d:'Every step says whether your money has gone and whether you have a seat.', shots:[
+      ['held-fare','A visible 20-minute hold'],
+      ['payment-declined','“No money has left your account.”'],
+      ['paid-not-ticketed','Paid, ticket still being issued'],
+      ['boarding-pass','Boarding pass']]},
+    {t:'Changing plans', d:'Costs are shown before you tap.', shots:[
+      ['cancel-booking','Line-by-line refund, voucher offered not pushed'],
+      ['modify-booking','Every option shows its cost']]},
+    {t:'Corporate travel', d:'Separate views for travellers and managers.', shots:[
+      ['corporate-traveller','Traveller: own trips, no company spend'],
+      ['corporate-manager','Manager: pending approvals first'],
+      ['approval-request','Over-cap amount and policy check'],
+      ['after-approving','What happens next, with a 10-minute undo']]}
+  ],
   outcome:{stats:[{v:'150+', l:'screens and states in one clickable prototype'},{v:'2', l:'brand directions carried through every screen'},{v:'0', l:'dead-end buttons, checked after each round'}],
     note:'A concept, not yet tested with travellers, so there are no outcome metrics. Next I’d test the onboarding order, whether people can read the “paid, not ticketed” screen, and whether the all-in price scares people off at the results list.'},
   reflection:'I’d pick the brand sooner, since keeping both working doubled the checking on every screen. And I’d do the button-by-button pass after each journey instead of saving it for the end, because that’s where the most interesting problems were.'
@@ -293,7 +318,10 @@ const experience = [
    3. RENDER — work list + experience
    ═══════════════════════════════════════════════════════════ */
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-const artFor = p => plates[p.art] ? plates[p.art]() : plates.system();
+const shotSrc = (p, name) => `assets/img/${p.id}/${name}.webp`;
+const artFor = p => p.thumb
+  ? `<span class="row__shots">${p.thumb.map(n=>`<img src="${shotSrc(p, n)}" alt="" width="600" height="1298" loading="lazy">`).join('')}</span>`
+  : plates[p.art] ? plates[p.art]() : plates.system();
 
 const workList = document.getElementById('work-list');
 
@@ -479,14 +507,27 @@ function buildCase(p, i){
       </div>`).join('')}</div>
     </section>` : ''}
 
-    <section class="blk wrap" data-stagger style="transition-delay:.24s">
+    ${p.gallery ? `<section class="blk wrap" data-stagger style="transition-delay:.24s">
+      <h3>The design</h3>
+      <p class="gal__hint">Select any screen to see it larger.</p>
+      <div class="gal">${p.gallery.map(g=>`
+        <div class="gal__grp">
+          <div class="gal__head"><h4>${esc(g.t)}</h4><p>${esc(g.d)}</p></div>
+          <div class="gal__row">${g.shots.map(([n, cap])=>`
+            <figure class="shot"><button class="shot__btn" type="button" data-shot="${n}" aria-label="View larger: ${esc(cap)}">
+              <img src="${shotSrc(p, n)}" alt="${esc(cap)}" width="600" height="1298" loading="lazy"></button>
+              <figcaption>${esc(cap)}</figcaption></figure>`).join('')}
+          </div>
+        </div>`).join('')}
+      </div>
+    </section>` : `<section class="blk wrap" data-stagger style="transition-delay:.24s">
       <h3>The design</h3>
       <div class="plates">
         ${plateFig(p.designArt[0], p.designCaps[0])}
         ${p.designArt[1] ? plateFig(p.designArt[1], p.designCaps[1]) : ''}
         ${p.designArt[2] ? plateFig(p.designArt[2], p.designCaps[2]) : ''}
       </div>
-    </section>
+    </section>`}
 
     <section class="blk wrap" data-stagger style="transition-delay:.28s">
       <div class="blk__grid"><p class="blk__label">Outcome</p>
@@ -533,6 +574,7 @@ function openCase(i){
 
 function closeCase(){
   if(!cs.classList.contains('is-open')) return;
+  closeShot();
   cs.classList.remove('is-in');
   cs.classList.remove('is-open');
   cs.setAttribute('aria-hidden','true');
@@ -620,14 +662,51 @@ document.querySelectorAll('[data-resume]').forEach(a=>a.addEventListener('click'
 }));
 rs.querySelectorAll('[data-rs-close]').forEach(el=>el.addEventListener('click', closeResume));
 
+/* ── SCREEN VIEWER (case-study galleries) ── */
+const lb = document.getElementById('lb'), lbImg = document.getElementById('lb-img'),
+      lbCap = document.getElementById('lb-cap'), lbCount = document.getElementById('lb-count');
+let lbShots = [], lbIdx = 0, lbFrom = null;
+
+function showShot(i){
+  lbIdx = (i + lbShots.length) % lbShots.length;
+  const b = lbShots[lbIdx], img = b.querySelector('img');
+  lbImg.src = img.src; lbImg.alt = img.alt;
+  lbCap.textContent = img.alt;
+  lbCount.textContent = `${lbIdx + 1} / ${lbShots.length}`;
+}
+function openShot(btn){
+  lbShots = [...csInner.querySelectorAll('.shot__btn')];
+  lbFrom = btn;
+  showShot(lbShots.indexOf(btn));
+  lb.setAttribute('aria-hidden','false');
+  lb.classList.add('is-open');
+  setTimeout(()=>lb.querySelector('.lb__close').focus({preventScroll:true}), 40);
+}
+function closeShot(){
+  if(!lb.classList.contains('is-open')) return;
+  lb.classList.remove('is-open');
+  lb.setAttribute('aria-hidden','true');
+  if(lbFrom) lbFrom.focus({preventScroll:true});
+}
+csInner.addEventListener('click', e=>{ const b = e.target.closest('.shot__btn'); if(b) openShot(b); });
+lb.addEventListener('click', e=>{
+  if(e.target.closest('[data-lb-close]')) return closeShot();
+  if(e.target.closest('[data-lb-prev]')) return showShot(lbIdx - 1);
+  if(e.target.closest('[data-lb-next]')) return showShot(lbIdx + 1);
+});
+
 /* keyboard: ESC closes; Tab is trapped inside whichever overlay is open */
 addEventListener('keydown', e=>{
   if(e.key === 'Escape'){
     if(document.body.classList.contains('menu-open')) return setMenu(false);
+    if(lb.classList.contains('is-open')) return closeShot();
     if(rs.classList.contains('is-open')) return closeResume();
     if(cs.classList.contains('is-open')) return closeCase();
   }
-  const overlay = rs.classList.contains('is-open') ? rs : cs.classList.contains('is-open') ? cs : null;
+  if(lb.classList.contains('is-open') && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')){
+    e.preventDefault(); return showShot(lbIdx + (e.key === 'ArrowRight' ? 1 : -1));
+  }
+  const overlay = lb.classList.contains('is-open') ? lb : rs.classList.contains('is-open') ? rs : cs.classList.contains('is-open') ? cs : null;
   if(e.key === 'Tab' && overlay){
     const f = [...overlay.querySelectorAll('button, [href], iframe, input, select, textarea, [tabindex]:not([tabindex="-1"])')].filter(el=>el.offsetParent);
     if(!f.length) return;
