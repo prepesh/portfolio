@@ -362,9 +362,9 @@ figcaption{margin-top:10px;font-size:13px;color:var(--ink-3)}
 .gal__head h4{margin:0;font-size:17px;font-weight:500;letter-spacing:-.025em}
 .gal__head p{margin:0;font-size:14px;color:var(--ink-3)}
 .gal__row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,28px)}
-.shot{margin:0;min-width:0}
+.shot{margin:0;min-width:0;align-self:start}
 .shot__btn{display:block;width:100%;border-radius:clamp(14px,1.6vw,22px);overflow:hidden;background:var(--paper-2);border:1px solid var(--rule-2);transition:transform .5s var(--ease),box-shadow .4s var(--ease-2)}
-.shot__btn img{display:block;width:100%;height:auto;aspect-ratio:600/1298}
+.shot__btn img{display:block;width:100%;height:auto}
 .shot__btn:hover{transform:translateY(-4px);box-shadow:0 18px 40px -22px rgba(0,0,0,.35)}
 .shot figcaption{margin-top:10px;font-size:13px;line-height:1.4;color:var(--ink-3)}
 
@@ -383,7 +383,7 @@ figcaption{margin-top:10px;font-size:13px;color:var(--ink-3)}
 .lb__count{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .lb__fig{position:relative;margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;max-height:100%;opacity:0;transform:scale(.97);transition:opacity .35s var(--ease-2),transform .45s var(--ease)}
 .lb.is-open .lb__fig{opacity:1;transform:none}
-.lb__img{display:block;height:min(calc(100svh - 150px),1298px);width:auto;max-width:100%;object-fit:contain;border-radius:clamp(18px,2.4vh,30px);border:1px solid var(--rule-2);box-shadow:0 30px 70px -30px rgba(0,0,0,.4)}
+.lb__img{display:block;height:auto;max-height:calc(100svh - 150px);width:auto;max-width:100%;object-fit:contain;border-radius:clamp(18px,2.4vh,30px);border:1px solid var(--rule-2);box-shadow:0 30px 70px -30px rgba(0,0,0,.4)}
 .lb__cap{font-size:14px;color:var(--ink-2);text-align:center;max-width:44ch}
 .lb__nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border:1px solid var(--rule);border-radius:50%;background:var(--paper);font-size:18px;transition:background .3s var(--ease-2),color .3s,border-color .3s}
 .lb__nav:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
@@ -475,7 +475,7 @@ figcaption{margin-top:10px;font-size:13px;color:var(--ink-3)}
   .gal__row{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:62%;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(var(--pad) * -1);padding-inline:var(--pad);scroll-padding-inline:var(--pad);padding-bottom:6px}
   .shot{scroll-snap-align:start}
   .lb{padding:64px 16px 88px}
-  .lb__img{height:min(calc(100svh - 190px),1298px)}
+  .lb__img{max-height:calc(100svh - 190px)}
   .lb__nav{top:auto;bottom:24px;transform:none}
   .rs__panel{border-radius:0;border:0;height:100%}
   .caps{gap:0 22px}

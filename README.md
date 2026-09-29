@@ -39,7 +39,7 @@ All project and experience content is in `assets/js/main.js`:
 - `projects`: each project's table row and full case study (overview, challenge, constraints, approach, key decisions, outcome, reflection).
 - `experience`: the Experience section entries.
 - `plates`: the placeholder project visuals, drawn as inline SVG.
-- `thumb` and `gallery` (optional, per project): real screens shown in the list thumbnail and in the case study's "The design" section, loaded from `assets/img/<project id>/<name>.webp`. Selecting a screen opens it larger. HIMĀL uses these.
+- `thumb` and `gallery` (optional, per project): real screens shown in the list thumbnail and in the case study's "The design" section, loaded from `assets/img/<project id>/<name>.webp`. Selecting a screen opens it larger. HIMĀL and Ridemio use these; `sizes` sets the pixel size of any screen that is not 600×1298.
 
 Colours, type and spacing are set as CSS variables at the top of `assets/css/style.css` (`:root` for light mode, `[data-theme="dark"]` for dark mode).
 

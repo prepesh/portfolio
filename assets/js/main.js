@@ -128,38 +128,45 @@ const plates = {
 const projects = [
 {
   num:'01', id:'ridemio', name:'Ridemio', category:'Mobility', discipline:'Product design',
-  role:'Product Designer', company:'', year:'',
-  desc:'Rides, deliveries, rentals and merchant services in one app.',
+  role:'Product Designer', company:'Live on iOS and Android', year:'',
+  desc:'Rides, rentals, parcels, food and groceries for Kathmandu, in one app.',
   art:'ridemio',
-  tagline:'Six services in one app — on streets that mostly don’t have names.',
-  overview:'Ridemio is a ride-sharing platform covering bike and car rides, parcel delivery, food delivery, vehicle rentals and merchant services. I worked across the customer and provider sides: how each service is discovered, booked, tracked and paid for, and what all six have to agree on.',
-  challenge:'Two problems sit on top of each other. The first is breadth — six services behind one launch screen can easily produce a platform where nothing is findable and every journey behaves slightly differently. The second is local. In Kathmandu most destinations are given by landmark rather than street address, two-wheelers carry a far larger share of trips than cars, and a significant proportion of fares are still settled in cash. A booking flow lifted from a Western ride-hailing app breaks on all three.',
+  tagline:'One app for getting around, and for getting things brought to you.',
+  overview:'Ridemio is a ride and delivery app for Kathmandu, now live on the App Store and Google Play. You can book a bike, car or tuk-tuk, reserve a ride up to three months ahead, rent a car by the day, send a parcel, and order food or groceries. I designed every screen, wrote the rules the app follows, and checked the built app against the design before it shipped.',
+  challenge:'Eight services in one app can easily feel like eight apps glued together, each working a little differently, until people give up. It also had to feel made for Kathmandu, not translated into it: most people pay cash, tuk-tuks are an everyday way to travel, addresses are long, and the real safety risk is simply getting on the wrong bike.',
   constraints:[
-    {b:'Addressing', t:'Landmark-based, not street-based. Typed addresses often resolve to nothing.'},
-    {b:'Vehicle mix', t:'Two-wheelers carry the majority of trips; cars are the exception, not the default.'},
-    {b:'Payment', t:'Cash and digital both have to be first-class, not one bolted onto the other.'},
-    {b:'Surface', t:'Six services sharing one navigation, one set of states and one visual language.'}
+    {b:'Eight services', t:'Bike, car, tuk-tuk, reserve, rentals, parcels, food and groceries, all from one home screen.'},
+    {b:'Cash first', t:'Most people pay in cash, with Fonepay QR alongside it.'},
+    {b:'Local places', t:'Long Nepali addresses and real landmarks had to fit on every screen.'},
+    {b:'Trust', t:'Passengers need to know they have found the right rider before they get on.'}
   ],
   approach:[
-    {t:'Service model', d:'Mapped the six services against what they genuinely share — a place, a time, a price, a person on the way — and built the spine around those constants rather than around the business units.'},
-    {t:'Two-sided states', d:'Designed the provider side alongside the customer side, so accepted, en route, delivered and cancelled mean the same thing on both.'},
-    {t:'Build collaboration', d:'Worked through implementation with engineering, documenting defects and edge cases against intended behaviour.'}
+    {t:'Same six steps everywhere', d:'Every service follows the same steps in the same order: pick, where, choose, confirm, watch, done. Only the choosing step changes: a vehicle, a menu or a shop.'},
+    {t:'One panel over the map', d:'Every question is asked in the same card that slides up from the bottom of the map, so your thumb never has to travel. 90 of the 257 screens are that panel in its different states.'},
+    {t:'Designing the bad days', d:'No internet, empty baskets, cancellations and loading all have their own screens, so nothing is a dead end.'},
+    {t:'Checking the build', d:'Went through the built app screen by screen against the design, like proofreading a printed book, and logged 26 issues and 3 improvements, each with a photo and a fix.'}
   ],
   decisions:[
-    {d:'Pickup set by pin and landmark, not by a typed address',
-     why:'Street-address entry fails across most of the valley, and a wrong pickup is the most expensive error in the flow — it wastes the rider’s time and the driver’s fuel. The field leads with saved places, recent pins and nearby landmarks, and treats the map pin as the source of truth with the text as a label.',
-     trade:'The map has to load and settle before a booking can start, which costs time on a weak connection.'},
-    {d:'One tracking screen shared by every service',
-     why:'A ride, a parcel and a food order are the same object to the person waiting: someone is on the way, here is where they are, here is how to reach them. Three separate variants would have tripled the states to maintain and taught people three habits for one situation.',
-     trade:'Service-specific detail had to move into a secondary sheet instead of sitting on the main view.'},
-    {d:'Payment method chosen at booking, not at drop-off',
-     why:'When cash is a real share of trips, leaving the method until the end turns every arrival into a negotiation. Deciding up front lets the provider accept with full information and removes the most common source of friction at the kerb.',
-     trade:'One more decision inside the booking flow, which is the part of the product most sensitive to added steps.'}
+    {d:'Learn it once, use it everywhere',
+     why:'Book a bike once and you already know how to send a parcel: same steps, same buttons, same place on the screen. It also means a new service arrives mostly designed already, because the panel, map, confirm step and receipt are the same parts.'},
+    {d:'No surprises on price',
+     why:'The fare stays in the same corner of the screen from request to payment. If moving your pickup a street over changes the price, the app stops and asks you to confirm the new fare. Discounts show as their own line, and the receipt is two lines and a total you can check in your head.'},
+    {d:'Safety as one sentence, at the right moment',
+     why:'Before you get on, the app shows the rider’s name, number plate and bike colour, with a four-digit code and one line: “never share it before you’ve confirmed the plate.” It sits exactly where you decide whether to get on. Deliveries use the same idea with a PIN.'},
+    {d:'Made for Kathmandu',
+     why:'Tuk-tuk sits in the top row, cash is the default, prices are in rupees the way people say them, and the designs use real places and shops like Imadol, Boudha and Bhatbhateni, so long addresses were tested to fit from the start.'}
   ],
-  designCaps:['Customer app — service hub, booking and live tracking','The booking spine, shared across all six services','Component and state library behind the platform'],
-  designArt:['ridemio', ['Locate','Book','Match','Track','Pay'], 'system'],
-  outcome:{note:'Ridemio gives people one dependable place for everyday mobility and delivery, with less friction between discovery, booking and tracking. Providers work from a consistent platform across rides, deliveries, rentals and merchant activity rather than a different tool per service.'},
-  reflection:'The hard part of a multi-service product isn’t designing six things. It’s deciding what all six must agree on, then holding that line when each service arrives with a good reason to be the exception.'
+  /* real screens, in assets/img/ridemio/ */
+  thumb:['welcome','home'],
+  sizes:{welcome:[323,700], home:[246,700]},
+  gallery:[
+    {t:'Welcome and home', d:'All eight services on one home screen.', shots:[
+      ['welcome','Welcome: “Move around with ease”'],
+      ['home','Home, with every service in one grid']]}
+  ],
+  outcome:{stats:[{v:'257', l:'phone screens across six complete journeys'},{v:'8', l:'services sharing the same six steps'},{v:'26', l:'build issues caught and logged before launch'}],
+    note:'Ridemio is live on the App Store and Google Play.'},
+  reflection:'The part I’m proudest of isn’t a single screen. The same six steps now carry a bike ride, a parcel and a plate of momos, so the app can keep growing without asking anyone to learn it twice.'
 },
 {
   num:'02', id:'nexteno', name:'NexTeno', category:'Property management', discipline:'Product design',
@@ -322,8 +329,9 @@ const experience = [
    ═══════════════════════════════════════════════════════════ */
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const shotSrc = (p, name) => `assets/img/${p.id}/${name}.webp`;
+const shotDims = (p, name) => { const [w, h] = (p.sizes && p.sizes[name]) || [600, 1298]; return `width="${w}" height="${h}"`; };
 const artFor = p => p.thumb
-  ? `<span class="row__shots">${p.thumb.map(n=>`<img src="${shotSrc(p, n)}" alt="" width="600" height="1298" loading="lazy">`).join('')}</span>`
+  ? `<span class="row__shots">${p.thumb.map(n=>`<img src="${shotSrc(p, n)}" alt="" ${shotDims(p, n)} loading="lazy">`).join('')}</span>`
   : plates[p.art] ? plates[p.art]() : plates.system();
 
 const workList = document.getElementById('work-list');
@@ -506,7 +514,7 @@ function buildCase(p, i){
       <div class="decs">${p.decisions.map(d=>`<div class="dec">
         <h4>${esc(d.d)}</h4>
         <div><p>${esc(d.why)}</p>
-        <div class="dec__trade"><b>Trade-off</b><span>${esc(d.trade)}</span></div></div>
+        ${d.trade ? `<div class="dec__trade"><b>Trade-off</b><span>${esc(d.trade)}</span></div>` : ''}</div>
       </div>`).join('')}</div>
     </section>` : ''}
 
@@ -518,7 +526,7 @@ function buildCase(p, i){
           <div class="gal__head"><h4>${esc(g.t)}</h4><p>${esc(g.d)}</p></div>
           <div class="gal__row">${g.shots.map(([n, cap])=>`
             <figure class="shot"><button class="shot__btn" type="button" data-shot="${n}" aria-label="View larger: ${esc(cap)}">
-              <img src="${shotSrc(p, n)}" alt="${esc(cap)}" width="600" height="1298" loading="lazy"></button>
+              <img src="${shotSrc(p, n)}" alt="${esc(cap)}" ${shotDims(p, n)} loading="lazy"></button>
               <figcaption>${esc(cap)}</figcaption></figure>`).join('')}
           </div>
         </div>`).join('')}
