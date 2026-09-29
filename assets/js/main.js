@@ -291,7 +291,10 @@ const projects = [
       ['corporate-traveller','Traveller: own trips, no company spend'],
       ['corporate-manager','Manager: pending approvals first'],
       ['approval-request','Over-cap amount and policy check'],
-      ['after-approving','What happens next, with a 10-minute undo']]}
+      ['after-approving','What happens next, with a 10-minute undo']]},
+    {t:'Loading and offline', d:'The in-between moments still look like the app.', shots:[
+      ['loading','A skeleton that matches the real layout'],
+      ['offline','Offline, with boarding passes still available']]}
   ],
   outcome:{stats:[{v:'150+', l:'screens and states in one clickable prototype'},{v:'2', l:'brand directions carried through every screen'},{v:'0', l:'dead-end buttons, checked after each round'}],
     note:'A concept, not yet tested with travellers, so there are no outcome metrics. Next I’d test the onboarding order, whether people can read the “paid, not ticketed” screen, and whether the all-in price scares people off at the results list.'},
