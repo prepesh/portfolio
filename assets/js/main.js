@@ -129,11 +129,11 @@ const projects = [
 {
   num:'01', id:'ridemio', name:'Ridemio', category:'Mobility', discipline:'Product design',
   role:'Product Designer', company:'Live on iOS and Android', year:'',
-  desc:'Rides, rentals, parcels, food and groceries for Kathmandu, in one app.',
+  desc:'Rides, rentals, parcels, food and groceries across Nepal, in one app.',
   art:'ridemio',
   tagline:'One app for getting around, and for getting things brought to you.',
-  overview:'Ridemio is a ride and delivery app for Kathmandu, now live on the App Store and Google Play. You can book a bike, car or tuk-tuk, reserve a ride up to three months ahead, rent a car by the day, send a parcel, and order food or groceries. I designed every screen, wrote the rules the app follows, and checked the built app against the design before it shipped.',
-  challenge:'Eight services in one app can easily feel like eight apps glued together, each working a little differently, until people give up. It also had to feel made for Kathmandu, not translated into it: most people pay cash, tuk-tuks are an everyday way to travel, addresses are long, and the real safety risk is simply getting on the wrong bike.',
+  overview:'Ridemio is a ride and delivery app for Nepal, now live on the App Store and Google Play. You can book a bike, car or tuk-tuk, reserve a ride up to three months ahead, rent a car by the day, send a parcel, and order food or groceries. I designed every screen, wrote the rules the app follows, and checked the built app against the design before it shipped.',
+  challenge:'Eight services in one app can easily feel like eight apps glued together, each working a little differently, until people give up. It also had to feel made for Nepal, not translated into it: most people pay cash, tuk-tuks are an everyday way to travel, addresses are long, and the real safety risk is simply getting on the wrong bike.',
   constraints:[
     {b:'Eight services', t:'Bike, car, tuk-tuk, reserve, rentals, parcels, food and groceries, all from one home screen.'},
     {b:'Cash first', t:'Most people pay in cash, with Fonepay QR alongside it.'},
@@ -153,8 +153,8 @@ const projects = [
      why:'The fare stays in the same corner of the screen from request to payment. If moving your pickup a street over changes the price, the app stops and asks you to confirm the new fare. Discounts show as their own line, and the receipt is two lines and a total you can check in your head.'},
     {d:'Safety as one sentence, at the right moment',
      why:'Before you get on, the app shows the rider’s name, number plate and bike colour, with a four-digit code and one line: “never share it before you’ve confirmed the plate.” It sits exactly where you decide whether to get on. Deliveries use the same idea with a PIN.'},
-    {d:'Made for Kathmandu',
-     why:'Tuk-tuk sits in the top row, cash is the default, prices are in rupees the way people say them, and the designs use real places and shops like Imadol, Boudha and Bhatbhateni, so long addresses were tested to fit from the start.'}
+    {d:'Made for Nepal',
+     why:'Tuk-tuk sits in the top row, cash is the default, prices are in rupees the way people say them, and the designs use real Nepali places and shops like Imadol, Boudha and Bhatbhateni, so long addresses were tested to fit from the start.'}
   ],
   /* real screens, in assets/img/ridemio/ */
   thumb:['welcome','home'],
