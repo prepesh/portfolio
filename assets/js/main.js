@@ -358,8 +358,9 @@ workList.innerHTML = `<div class="index__labels" aria-hidden="true">
 const rows = [...workList.querySelectorAll('.row')];
 let active = -1;
 
+/* -1 clears the highlight */
 function setActive(i){
-  if(i === active || !projects[i]) return;
+  if(i === active || (i !== -1 && !projects[i])) return;
   active = i;
   rows.forEach((r,n)=>r.classList.toggle('is-active', n === i));
 }
@@ -442,18 +443,26 @@ xpList.addEventListener('click', e=>{
 });
 addEventListener('resize', ()=>document.querySelectorAll('.xp__item.is-open .xp__panel').forEach(p=>{p.style.height = p.firstElementChild.offsetHeight + 'px';}));
 
-/* index: hover, focus and keyboard browsing */
-setActive(0);
-
+/* index: hover, focus and keyboard browsing.
+   The highlight follows a mouse or the keyboard only: a tap, or focus handed back
+   after closing a case study, must not leave a row looking selected. */
 const indexEl = document.querySelector('.index');
-workList.addEventListener('focusin', ()=>indexEl.classList.add('is-kb'));
 workList.addEventListener('focusout', e=>{
-  if(!e.relatedTarget || !workList.contains(e.relatedTarget)) indexEl.classList.remove('is-kb');
+  if(!e.relatedTarget || !workList.contains(e.relatedTarget)){ indexEl.classList.remove('is-kb'); setActive(-1); }
+});
+workList.addEventListener('pointerleave', e=>{
+  if(e.pointerType === 'touch') return;
+  const f = rows.indexOf(document.activeElement);   /* fall back to the keyboard position, if any */
+  setActive(f > -1 && rows[f].matches(':focus-visible') ? f : -1);
 });
 
 rows.forEach((row,i)=>{
-  row.addEventListener('pointerenter', ()=>setActive(i));
-  row.addEventListener('focus', ()=>setActive(i));
+  row.addEventListener('pointerenter', e=>{ if(e.pointerType !== 'touch') setActive(i); });
+  row.addEventListener('focus', ()=>{
+    if(!row.matches(':focus-visible')) return;
+    indexEl.classList.add('is-kb');
+    setActive(i);
+  });
   row.addEventListener('keydown', e=>{
     const map = {ArrowDown:1, ArrowRight:1, ArrowUp:-1, ArrowLeft:-1};
     if(map[e.key]){
@@ -468,7 +477,7 @@ rows.forEach((row,i)=>{
 /* ── CASE STUDY OVERLAY ── */
 const cs = document.getElementById('cs'), csInner = document.getElementById('cs-inner'),
       csPanel = document.getElementById('cs-panel'), csClose = document.getElementById('cs-close');
-let lastFocus = null, savedY = 0, current = -1;
+let lastFocus = null, savedY = 0, current = -1, openedByPointer = false;
 
 const stat = s => `<div class="stat"><b>${esc(s.v)}</b><span>${esc(s.l)}</span></div>`;
 
@@ -595,7 +604,9 @@ function closeCase(){
   window.scrollTo(0, savedY);
 
   setTimeout(()=>{ if(!cs.classList.contains('is-open')) csInner.innerHTML = ''; }, 500);
-  if(lastFocus) lastFocus.focus({preventScroll:true});
+  /* hand focus back for keyboard users; after a click or tap, do it without a focus ring or highlight */
+  if(lastFocus) lastFocus.focus({preventScroll:true, focusVisible:!openedByPointer});
+  if(openedByPointer){ setActive(-1); indexEl.classList.remove('is-kb'); }
   if(history.state && history.state.cs) history.back();
   else if(location.hash) history.replaceState(null, '', location.pathname + location.search);
   current = -1;
@@ -607,6 +618,7 @@ function launch(i){
 }
 workList.addEventListener('click', e=>{
   const row = e.target.closest('.row'); if(!row) return;
+  openedByPointer = e.detail > 0;   /* 0 when opened with Enter or Space */
   launch(+row.dataset.i);
 });
 
