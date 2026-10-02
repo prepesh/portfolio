@@ -338,7 +338,7 @@ const workList = document.getElementById('work-list');
 
 workList.innerHTML = `<div class="index__labels" aria-hidden="true">
     <span>No.</span><span>Project</span><span>Role</span><span>Sector</span><span>Discipline</span>
-    <span class="h-year">Year</span><span class="h-prev">Preview</span>
+    <span class="h-prev">Preview</span>
   </div>` +
   projects.map((p,i)=>`
   <button class="row" data-i="${i}" aria-haspopup="dialog" aria-label="${esc(p.name)}, ${esc(p.category)}. Open case study">
@@ -351,7 +351,6 @@ workList.innerHTML = `<div class="index__labels" aria-hidden="true">
     <span class="cell cell--role">${esc(p.role)}${p.company ? `<small>${esc(p.company)}</small>` : ''}</span>
     <span class="cell cell--sector">${esc(p.category)}</span>
     <span class="cell cell--disc">${esc(p.discipline)}</span>
-    <span class="cell cell--year${p.year ? '' : ' is-empty'}">${p.year ? esc(p.year.split(' — ')[0]) + (p.year.includes('—') ? `<small>to ${esc(p.year.split(' — ')[1])}</small>` : '') : ''}</span>
     <span class="row__thumb" aria-hidden="true">${artFor(p)}</span>
   </button>`).join('');
 

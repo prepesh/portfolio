@@ -47,7 +47,7 @@ Colours, type and spacing are set as CSS variables at the top of `assets/css/sty
 
 - **Project visuals:** these are placeholder drawings. To use real screens, return an `<img src="…" alt="…" loading="lazy">` from the matching function in `plates` in `main.js`.
 - **Case studies:** check the "Key decisions" in each case study and confirm or correct them so they match the work you actually did.
-- **Missing details:** Ridemio and NexTeno have no company or year set. Fill in `company` and `year` in `projects` if you want them shown.
+- **Missing details:** Ridemio and NexTeno have no company or year set. Fill in `company` and `year` in `projects` if you want them shown (the year appears in the case study, not in the Selected work list).
 
 ## Resume popup
 
