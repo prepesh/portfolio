@@ -24,13 +24,28 @@ npx serve .
 python3 -m http.server 8000
 ```
 
-## Deploy on GitHub Pages
+## Deploy on GitHub Pages, at www.prepesh.com
 
-1. Push this folder to a GitHub repository.
-2. In the repository, go to **Settings → Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**, pick `main` and `/ (root)`, and save.
+1. In the repository, go to **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, pick `main` and `/ (root)`, and save.
+2. Under **Custom domain**, enter `www.prepesh.com` and save. The `CNAME` file in this folder holds the same domain, so keep the two in sync.
+3. At your DNS provider for prepesh.com, remove any records that point the domain at another host, then add:
 
-The site is then published at `https://<username>.github.io/<repository>/`.
+   | Type | Name | Value |
+   |---|---|---|
+   | CNAME | `www` | `prepesh.github.io` |
+   | A | `@` | `185.199.108.153` |
+   | A | `@` | `185.199.109.153` |
+   | A | `@` | `185.199.110.153` |
+   | A | `@` | `185.199.111.153` |
+   | AAAA | `@` | `2606:50c0:8000::153` |
+   | AAAA | `@` | `2606:50c0:8001::153` |
+   | AAAA | `@` | `2606:50c0:8002::153` |
+   | AAAA | `@` | `2606:50c0:8003::153` |
+
+   On Cloudflare, set these records to **DNS only** (grey cloud) so GitHub can issue the HTTPS certificate.
+4. Once **Settings → Pages** shows the DNS check passing, tick **Enforce HTTPS**. `prepesh.com` then redirects to `https://www.prepesh.com`.
+
+DNS changes can take from a few minutes to a day to spread.
 
 ## Editing content
 
