@@ -410,7 +410,6 @@ menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(fal
 
 /* theme toggle */
 const themeBtn = document.getElementById('theme-btn');
-const sysDark = matchMedia('(prefers-color-scheme: dark)');
 const applyTheme = mode => {
   document.documentElement.setAttribute('data-theme', mode);
   const dark = mode === 'dark';
@@ -421,12 +420,11 @@ const applyTheme = mode => {
   const meta = document.querySelector('meta[name="theme-color"]:not([media])');
   if (meta) meta.setAttribute('content', dark ? '#121210' : '#FFFFFF');
 };
-/* a saved choice wins over the system setting; storage can be unavailable (private mode, blocked site data) */
+/* light by default, whatever the device setting; a dark choice made with the button is remembered.
+   Storage can be unavailable (private mode, blocked site data) */
 const savedTheme = (()=>{ try { return localStorage.getItem('theme'); } catch(e){ return null; } })();
-applyTheme(savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : (sysDark.matches ? 'dark' : 'light'));
-sysDark.addEventListener('change', e => { if(!savedTheme && !themeBtn.dataset.userSet) applyTheme(e.matches ? 'dark' : 'light'); });
+applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
 themeBtn.addEventListener('click', ()=>{
-  themeBtn.dataset.userSet = '1';
   const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   applyTheme(next);
   try { localStorage.setItem('theme', next); } catch(e){}

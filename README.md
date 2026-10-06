@@ -60,5 +60,5 @@ The "Resume" link in Contact opens the resume in a popup on the page. Set its `h
 ## Notes
 
 - Fonts (Schibsted Grotesk and Newsreader) load from Google Fonts.
-- The page respects `prefers-reduced-motion` and `prefers-color-scheme`.
+- The page respects `prefers-reduced-motion`. It always opens in light mode; a visitor who switches to dark with the theme button gets dark on later visits too.
 - Case studies can be linked to directly with `#ridemio`, `#nexteno`, `#khalti` and `#himal`.
