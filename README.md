@@ -43,6 +43,8 @@ All project and experience content is in `assets/js/main.js`:
 - `plates`: the placeholder project visuals, drawn as inline SVG.
 - `thumb` and `gallery` (optional, per project): real screens shown in the list thumbnail and in the case study's "The design" section, loaded from `assets/img/<project id>/<name>.webp`. Selecting a screen opens it larger. HIMĀL and Ridemio use these; `sizes` sets the pixel size of any screen that is not 600×1298.
 
+After changing `style.css` or `main.js`, update the `?v=` number on their links at the bottom of `index.html` and in its `<head>` (for example to today's date), so browsers and Cloudflare fetch the new files instead of a stored copy. `_headers` also tells Cloudflare Pages to check for newer pages, styles and scripts on every visit.
+
 Colours, type and spacing are set as CSS variables at the top of `assets/css/style.css` (`:root` for light mode, `[data-theme="dark"]` for dark mode).
 
 ## Before going live

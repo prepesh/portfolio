@@ -1,0 +1,8 @@
+# Cloudflare Pages response headers.
+# Pages, styles and scripts are checked for a newer copy on every visit, so the page
+# and its stylesheet can never be out of step. Screens change rarely and are cached.
+/*
+  Cache-Control: no-cache
+
+/assets/img/*
+  Cache-Control: public, max-age=604800
