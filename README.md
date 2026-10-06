@@ -24,28 +24,15 @@ npx serve .
 python3 -m http.server 8000
 ```
 
-## Deploy on GitHub Pages, at www.prepesh.com
+## Hosting
 
-1. In the repository, go to **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, pick `main` and `/ (root)`, and save.
-2. Under **Custom domain**, enter `www.prepesh.com` and save. The `CNAME` file in this folder holds the same domain, so keep the two in sync.
-3. At your DNS provider for prepesh.com, remove any records that point the domain at another host, then add:
+The site is published with **Cloudflare Pages** (project `portfolio`), connected to this repository:
 
-   | Type | Name | Value |
-   |---|---|---|
-   | CNAME | `www` | `prepesh.github.io` |
-   | A | `@` | `185.199.108.153` |
-   | A | `@` | `185.199.109.153` |
-   | A | `@` | `185.199.110.153` |
-   | A | `@` | `185.199.111.153` |
-   | AAAA | `@` | `2606:50c0:8000::153` |
-   | AAAA | `@` | `2606:50c0:8001::153` |
-   | AAAA | `@` | `2606:50c0:8002::153` |
-   | AAAA | `@` | `2606:50c0:8003::153` |
+- Every push to `main` publishes the live site.
+- Every other branch gets its own preview address, shown in a comment on its pull request.
+- No build settings are needed: the build command is empty and the output folder is the repository root.
 
-   On Cloudflare, set these records to **DNS only** (grey cloud) so GitHub can issue the HTTPS certificate.
-4. Once **Settings → Pages** shows the DNS check passing, tick **Enforce HTTPS**. `prepesh.com` then redirects to `https://www.prepesh.com`.
-
-DNS changes can take from a few minutes to a day to spread.
+To serve it at www.prepesh.com, add `prepesh.com` and `www.prepesh.com` under **Workers & Pages → portfolio → Custom domains** in Cloudflare. Cloudflare creates the DNS records and the HTTPS certificate.
 
 ## Editing content
 
