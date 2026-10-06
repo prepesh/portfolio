@@ -1,14 +1,11 @@
 /* ═══════════════════════════════════════════════════════════
    1. VISUAL FRAMEWORK — schematic placeholder plates
    Each plate is inline SVG using currentColor, so it themes
-   automatically. To use real screens, replace the returned
+   automatically; its classes are styled under .plate-svg in style.css. To use real screens, replace the returned
    string with:  <img src="…" alt="…" loading="lazy" width height>
    ═══════════════════════════════════════════════════════════ */
 const svg = (inner, w = 900, h = 560) =>
-  `<svg viewBox="0 0 ${w} ${h}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic placeholder for project visual">
-   <style>.ln{stroke:currentColor;stroke-width:1.2;opacity:.34}.lnf{stroke:currentColor;stroke-width:1.2;opacity:.62}
-   .fl{fill:currentColor;opacity:.06}.fs{fill:currentColor;opacity:.14}.fd{fill:currentColor;opacity:.30}
-   .ac{fill:var(--accent);opacity:.92}.acs{stroke:var(--accent);stroke-width:1.7;opacity:.92}</style>${inner}</svg>`;
+  `<svg class="plate-svg" viewBox="0 0 ${w} ${h}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic placeholder for project visual">${inner}</svg>`;
 
 const bars = (x, y, n, w, h = 6, gap = 14, cls = 'fs') =>
   Array.from({length: n}, (_, i) =>
@@ -69,47 +66,30 @@ const plates = {
     ${[0,1,2,3,4,5,6,7,8,9].map(i=>`<rect x="690" y="${80+i*42}" width="${[128,96,140,110,84,132,100,146,92,120][i]}" height="7" rx="3.5" class="${i%4===0?'fd':'fs'}"/>`).join('')}
   `),
 
-  /* 04 Gurkha Watch — e-commerce */
-  gurkha: () => svg(`
-    <rect x="60" y="60" width="780" height="440" rx="4" class="ln"/>
-    <line x1="60" y1="112" x2="840" y2="112" class="ln"/>
-    ${bars(86, 82, 1, 84, 8, 0, 'fd')}${[0,1,2].map(i=>`<rect x="${560+i*70}" y="83" width="52" height="6" rx="3" class="fs"/>`).join('')}
-    <rect x="86" y="142" width="150" height="330" rx="3" class="fl"/>
-    ${[0,1,2,3,4,5,6].map(i=>`<rect x="106" y="${170+i*40}" width="12" height="12" rx="2" class="${i===2?'ac':'ln'}"/><rect x="128" y="${174+i*40}" width="${[76,92,64,84,70,88,60][i]}" height="6" rx="3" class="fs"/>`).join('')}
-    ${[0,1,2,3,4,5].map(i=>{const x=270+(i%3)*190,y=142+Math.floor(i/3)*170;return `<rect x="${x}" y="${y}" width="170" height="150" rx="3" class="ln"/><rect x="${x}" y="${y}" width="170" height="104" rx="3" class="fl"/><circle cx="${x+85}" cy="${y+52}" r="30" class="ln"/><circle cx="${x+85}" cy="${y+52}" r="10" class="fs"/><rect x="${x+16}" y="${y+118}" width="${[92,74,110,86,100,68][i]}" height="6" rx="3" class="fs"/><rect x="${x+16}" y="${y+132}" width="46" height="6" rx="3" class="fd"/>`}).join('')}
-  `),
-
-  /* 05 Reconwithme — web3 */
-  recon: () => svg(`
-    <rect x="60" y="60" width="780" height="440" rx="4" class="ln"/>
-    <line x1="60" y1="116" x2="840" y2="116" class="ln"/>
-    <path d="M92 74 l16 9 v18 l-16 9 -16-9 V83z" transform="translate(16,4)" class="ac"/>
-    ${bars(136, 84, 1, 96, 8, 0, 'fd')}<rect x="716" y="78" width="100" height="26" rx="13" class="ln"/>
-    ${[0,1,2,3].map(i=>{const x=90+i*192;return `<rect x="${x}" y="150" width="172" height="196" rx="4" class="ln"/><rect x="${x}" y="150" width="172" height="130" rx="4" class="fl"/>
-      <path d="M${x+86} 186 l30 17 v34 l-30 17 -30-17 v-34z" class="${i===0?'ac':'fs'}"/>
-      <rect x="${x+16}" y="296" width="${[96,80,110,88][i]}" height="7" rx="3.5" class="fs"/>
-      <rect x="${x+16}" y="316" width="52" height="7" rx="3.5" class="fd"/><rect x="${x+120}" y="314" width="36" height="11" rx="5.5" class="fl"/>`}).join('')}
-    <rect x="90" y="378" width="556" height="102" rx="4" class="ln"/>
-    <path d="M110 452 L180 424 L250 438 L320 398 L390 414 L460 382 L530 396 L620 366" class="acs" fill="none"/>
-    ${[0,1,2,3].map(i=>`<line x1="${110}" y1="${402+i*24}" x2="626" y2="${402+i*24}" class="ln" opacity=".18"/>`).join('')}
-    <rect x="668" y="378" width="148" height="102" rx="4" class="fl"/><rect x="668" y="378" width="148" height="102" rx="4" class="ln"/>
-    ${bars(690, 404, 3, i => [72, 104, 60][i], 7, 22)}
-  `),
-
-  /* 06 Deerhold — enterprise / HR */
-  deerhold: () => svg(`
-    <rect x="60" y="60" width="380" height="440" rx="4" class="ln"/>
-    <rect x="60" y="60" width="380" height="150" rx="4" class="fl"/>
-    ${bars(88, 100, 2, i => [180, 260][i], 10, 26, 'fd')}<rect x="88" y="164" width="112" height="28" rx="14" class="ac"/>
-    ${[0,1,2].map(i=>`<rect x="88" y="${240+i*80}" width="324" height="60" rx="3" class="ln"/><circle cx="118" cy="${270+i*80}" r="14" class="fs"/><rect x="146" y="${258+i*80}" width="${[140,110,168][i]}" height="7" rx="3.5" class="fs"/><rect x="146" y="${276+i*80}" width="92" height="6" rx="3" class="fl"/>`).join('')}
-    <rect x="470" y="60" width="370" height="200" rx="4" class="ln"/>
-    <line x1="470" y1="104" x2="840" y2="104" class="ln"/>${bars(494, 76, 1, 92, 7)}
-    ${[0,1,2,3].map(i=>`<line x1="470" y1="${142+i*38}" x2="840" y2="${142+i*38}" class="ln" opacity=".2"/><rect x="494" y="${120+i*38}" width="${[118,92,134,104][i]}" height="7" rx="3.5" class="fs"/><rect x="700" y="${118+i*38}" width="58" height="14" rx="7" class="${i===1?'ac':'fl'}"/>`).join('')}
-    <rect x="470" y="288" width="370" height="212" rx="4" class="ln"/>
-    <rect x="618" y="316" width="76" height="34" rx="4" class="fd"/>
-    <path d="M656 350 v26 M540 376 h232 M540 376 v22 M656 376 v22 M772 376 v22" class="ln"/>
-    ${[0,1,2].map(i=>`<rect x="${504+i*116}" y="398" width="72" height="30" rx="4" class="fs"/>`).join('')}
-    ${bars(504, 448, 2, i => [180, 240][i], 7, 20, 'fl')}
+  /* 04 HIMĀL — airline app: search, fares, seat map */
+  airline: () => svg(`
+    ${phone(90, 50, 230, 460)}
+    <rect x="112" y="96" width="186" height="118" rx="10" class="fl"/><rect x="112" y="96" width="186" height="118" rx="10" class="ln"/>
+    <rect x="128" y="114" width="40" height="14" rx="3" class="fd"/><rect x="242" y="114" width="40" height="14" rx="3" class="fd"/>
+    <path d="M148 150 Q205 112 262 150" class="acs" fill="none" stroke-dasharray="4 5"/>
+    <circle cx="148" cy="150" r="4" class="ac"/><circle cx="262" cy="150" r="4" class="ac"/>
+    <rect x="128" y="176" width="70" height="6" rx="3" class="fs"/><rect x="212" y="176" width="70" height="6" rx="3" class="fs"/>
+    <rect x="128" y="190" width="46" height="6" rx="3" class="fl"/><rect x="212" y="190" width="46" height="6" rx="3" class="fl"/>
+    ${[0,1,2].map(i=>`<rect x="112" y="${234+i*66}" width="186" height="54" rx="8" class="${i===1?'fs':'fl'}"/><rect x="112" y="${234+i*66}" width="186" height="54" rx="8" class="${i===1?'acs':'ln'}"/>
+      <rect x="126" y="${248+i*66}" width="${[64,52,72][i]}" height="7" rx="3.5" class="fd"/><rect x="126" y="${264+i*66}" width="${[96,84,104][i]}" height="5" rx="2.5" class="fs"/>
+      <rect x="244" y="${250+i*66}" width="40" height="10" rx="3" class="${i===1?'ac':'fd'}"/>`).join('')}
+    <rect x="112" y="452" width="186" height="36" rx="18" class="fd"/>
+    <rect x="370" y="50" width="220" height="460" rx="4" class="fl"/><rect x="370" y="50" width="220" height="460" rx="4" class="ln"/>
+    <path d="M410 96 Q480 58 550 96" class="ln" fill="none"/>
+    ${Array.from({length:10},(_,r)=>[0,1,2,3,4,5].map(c=>{const x=398+c*28+(c>2?20:0),y=118+r*36,taken=(r*7+c*3)%5===0,pick=r===4&&c===4;return `<rect x="${x}" y="${y}" width="20" height="24" rx="5" class="${pick?'ac':taken?'fd':'ln'}"/>`}).join('')).join('')}
+    <rect x="630" y="50" width="210" height="220" rx="4" class="ln"/>
+    ${bars(652, 78, 4, i => [120,96,140,84][i], 7, 22)}
+    <rect x="652" y="178" width="166" height="1" class="fs"/>
+    <rect x="652" y="196" width="60" height="9" rx="3" class="fd"/><rect x="760" y="194" width="58" height="12" rx="3" class="ac"/>
+    <rect x="652" y="226" width="166" height="26" rx="13" class="fd"/>
+    <rect x="630" y="300" width="210" height="210" rx="4" class="ln"/><rect x="630" y="300" width="210" height="64" rx="4" class="fl"/>
+    <rect x="652" y="322" width="80" height="8" rx="4" class="fd"/><rect x="652" y="340" width="120" height="6" rx="3" class="fs"/>
+    ${bars(652, 390, 5, i => [150,110,132,90,120][i], 6, 22)}
   `),
 
   /* shared — flow diagram */
@@ -148,38 +128,45 @@ const plates = {
 const projects = [
 {
   num:'01', id:'ridemio', name:'Ridemio', category:'Mobility', discipline:'Product design',
-  role:'Product Designer', company:'', year:'',
-  desc:'Rides, deliveries, rentals and merchant services in one app.',
+  role:'Product Designer', company:'Live on iOS and Android', year:'',
+  desc:'Rides, rentals, parcels, food and groceries in one app, starting in Nepal.',
   art:'ridemio',
-  tagline:'Six services in one app — on streets that mostly don’t have names.',
-  overview:'Ridemio is a ride-sharing platform covering bike and car rides, parcel delivery, food delivery, vehicle rentals and merchant services. I worked across the customer and provider sides: how each service is discovered, booked, tracked and paid for, and what all six have to agree on.',
-  challenge:'Two problems sit on top of each other. The first is breadth — six services behind one launch screen can easily produce a platform where nothing is findable and every journey behaves slightly differently. The second is local. In Kathmandu most destinations are given by landmark rather than street address, two-wheelers carry a far larger share of trips than cars, and a significant proportion of fares are still settled in cash. A booking flow lifted from a Western ride-hailing app breaks on all three.',
+  tagline:'One app for getting around, and for getting things brought to you.',
+  overview:'Ridemio is a ride and delivery app, live on the App Store and Google Play. It launched in Nepal and is built to work in other countries too, with its wording, currency and payment options changing to suit each place. You can book a bike, car or tuk-tuk, reserve a ride up to three months ahead, rent a car by the day, send a parcel, and order food or groceries. I designed every screen, wrote the rules the app follows, and checked the built app against the design before it shipped.',
+  challenge:'Eight services in one app can easily feel like eight apps glued together, each working a little differently, until people give up. It also had to feel local wherever it runs, not translated. In Nepal, the first market, most people pay cash, tuk-tuks are an everyday way to travel, addresses are long, and the real safety risk is simply getting on the wrong bike.',
   constraints:[
-    {b:'Addressing', t:'Landmark-based, not street-based. Typed addresses often resolve to nothing.'},
-    {b:'Vehicle mix', t:'Two-wheelers carry the majority of trips; cars are the exception, not the default.'},
-    {b:'Payment', t:'Cash and digital both have to be first-class, not one bolted onto the other.'},
-    {b:'Surface', t:'Six services sharing one navigation, one set of states and one visual language.'}
+    {b:'Eight services', t:'Bike, car, tuk-tuk, reserve, rentals, parcels, food and groceries, all from one home screen.'},
+    {b:'Cash first', t:'In Nepal most people pay in cash, with Fonepay QR alongside it.'},
+    {b:'Many places', t:'Words, prices, payment options and addresses have to adapt to each country, starting with long Nepali addresses.'},
+    {b:'Trust', t:'Passengers need to know they have found the right rider before they get on.'}
   ],
   approach:[
-    {t:'Service model', d:'Mapped the six services against what they genuinely share — a place, a time, a price, a person on the way — and built the spine around those constants rather than around the business units.'},
-    {t:'Two-sided states', d:'Designed the provider side alongside the customer side, so accepted, en route, delivered and cancelled mean the same thing on both.'},
-    {t:'Build collaboration', d:'Worked through implementation with engineering, documenting defects and edge cases against intended behaviour.'}
+    {t:'Same six steps everywhere', d:'Every service follows the same steps in the same order: pick, where, choose, confirm, watch, done. Only the choosing step changes: a vehicle, a menu or a shop.'},
+    {t:'One panel over the map', d:'Every question is asked in the same card that slides up from the bottom of the map, so your thumb never has to travel. 90 of the 257 screens are that panel in its different states.'},
+    {t:'Designing the bad days', d:'No internet, empty baskets, cancellations and loading all have their own screens, so nothing is a dead end.'},
+    {t:'Checking the build', d:'Went through the built app screen by screen against the design, like proofreading a printed book, and logged 26 issues and 3 improvements, each with a photo and a fix.'}
   ],
   decisions:[
-    {d:'Pickup set by pin and landmark, not by a typed address',
-     why:'Street-address entry fails across most of the valley, and a wrong pickup is the most expensive error in the flow — it wastes the rider’s time and the driver’s fuel. The field leads with saved places, recent pins and nearby landmarks, and treats the map pin as the source of truth with the text as a label.',
-     trade:'The map has to load and settle before a booking can start, which costs time on a weak connection.'},
-    {d:'One tracking screen shared by every service',
-     why:'A ride, a parcel and a food order are the same object to the person waiting: someone is on the way, here is where they are, here is how to reach them. Three separate variants would have tripled the states to maintain and taught people three habits for one situation.',
-     trade:'Service-specific detail had to move into a secondary sheet instead of sitting on the main view.'},
-    {d:'Payment method chosen at booking, not at drop-off',
-     why:'When cash is a real share of trips, leaving the method until the end turns every arrival into a negotiation. Deciding up front lets the provider accept with full information and removes the most common source of friction at the kerb.',
-     trade:'One more decision inside the booking flow, which is the part of the product most sensitive to added steps.'}
+    {d:'Learn it once, use it everywhere',
+     why:'Book a bike once and you already know how to send a parcel: same steps, same buttons, same place on the screen. It also means a new service arrives mostly designed already, because the panel, map, confirm step and receipt are the same parts.'},
+    {d:'No surprises on price',
+     why:'The fare stays in the same corner of the screen from request to payment. If moving your pickup a street over changes the price, the app stops and asks you to confirm the new fare. Discounts show as their own line, and the receipt is two lines and a total you can check in your head.'},
+    {d:'Safety as one sentence, at the right moment',
+     why:'Before you get on, the app shows the rider’s name, number plate and bike colour, with a four-digit code and one line: “never share it before you’ve confirmed the plate.” It sits exactly where you decide whether to get on. Deliveries use the same idea with a PIN.'},
+    {d:'Local wherever it runs',
+     why:'The app changes its wording, currency and payment options for each country. In Nepal that means tuk-tuk sits in the top row, cash is the default, prices are in rupees the way people say them, and the designs use real Nepali places and shops like Imadol, Boudha and Bhatbhateni, so long addresses were tested to fit from the start.'}
   ],
-  designCaps:['Customer app — service hub, booking and live tracking','The booking spine, shared across all six services','Component and state library behind the platform'],
-  designArt:['ridemio', ['Locate','Book','Match','Track','Pay'], 'system'],
-  outcome:{note:'Ridemio gives people one dependable place for everyday mobility and delivery, with less friction between discovery, booking and tracking. Providers work from a consistent platform across rides, deliveries, rentals and merchant activity rather than a different tool per service.'},
-  reflection:'The hard part of a multi-service product isn’t designing six things. It’s deciding what all six must agree on, then holding that line when each service arrives with a good reason to be the exception.'
+  /* real screens, in assets/img/ridemio/ */
+  thumb:['welcome','home'],
+  sizes:{welcome:[323,700], home:[246,700]},
+  gallery:[
+    {t:'Welcome and home', d:'All eight services on one home screen.', shots:[
+      ['welcome','Welcome: “Move around with ease”'],
+      ['home','Home, with every service in one grid']]}
+  ],
+  outcome:{stats:[{v:'257', l:'phone screens across six complete journeys'},{v:'8', l:'services sharing the same six steps'},{v:'26', l:'build issues caught and logged before launch'}],
+    note:'Ridemio is live on the App Store and Google Play.'},
+  reflection:'The part I’m proudest of isn’t a single screen. The same six steps now carry a bike ride, a parcel and a plate of momos, so the app can keep growing without asking anyone to learn it twice.'
 },
 {
   num:'02', id:'nexteno', name:'NexTeno', category:'Property management', discipline:'Product design',
@@ -252,103 +239,73 @@ const projects = [
   reflection:'Designing payments taught me that confidence is a feature. People don’t reread a screen when they trust what the last one did.'
 },
 {
-  num:'04', id:'gurkha', name:'Gurkha Watch', category:'E-commerce', discipline:'UI/UX design',
-  role:'UI/UX Designer', company:'Gurkha Watch and Accessories Pvt. Ltd.', year:'2025 — 2026',
-  desc:'Retail experience for watches and accessories.',
-  art:'gurkha',
-  tagline:'Retail where the photograph does the selling and the buyer takes weeks.',
-  overview:'UI/UX design for the Gurkha Watch and Accessories e-commerce experience — catalogue, product detail and checkout for a considered-purchase category.',
-  challenge:'A watch is bought slowly and almost entirely from photographs. The buyer wants to compare a handful of pieces on attributes they may not fully understand — movement, case diameter, water resistance — and needs to believe the piece will look right on their wrist before paying. The interface has to support that comparison without turning browsing into work, and without crowding the one thing actually doing the selling.',
+  num:'04', id:'himal', name:'HIMĀL', category:'Travel', discipline:'Product design',
+  role:'Product Designer', company:'Self-initiated concept', year:'2026',
+  desc:'Airline app concept, from first open to boarding.',
+  art:'airline',
+  tagline:'An airline app that asks for nothing until it has earned it.',
+  overview:'HIMĀL is a concept app for a Kathmandu-based airline that I designed on my own, from research framing to prototype and design system. It covers guest and member flows from booking to boarding, plus corporate travel: 150+ screens and states in one clickable prototype.',
+  challenge:'The brief asked for every screen and every state. That’s a list, not a point of view. So before drawing anything I marked the moments where an airline app takes something from you: your data, your money, or your certainty that you’re on the plane. There were five: the first minute, when the app asks before it gives; the price, when the number you see isn’t the number you pay; the gap between paying and having a ticket; changing or cancelling; and business travel, where two people with different jobs share one app. Everything still had to work, but those five got most of my attention.',
   constraints:[
-    {b:'Category', t:'Considered purchase with a long decision window and repeat visits.'},
-    {b:'Evidence', t:'Photography and specification carry the sale; there is nothing else.'},
-    {b:'Range', t:'A catalogue that has to stay scannable as it grows.'}
+    {b:'Guest first', t:'Search, compare and check a flight without an account. Sign-in only when it’s truly needed.'},
+    {b:'Honest price', t:'Fares include taxes and a checked bag. Extras show their price before you tap.'},
+    {b:'Named states', t:'Every in-between state says whether your money has gone and whether you have a seat.'},
+    {b:'No dead ends', t:'If a button exists, the screen behind it exists, including empty, loading and error.'}
   ],
   approach:[
-    {t:'Browse and filter', d:'Structured the catalogue so narrowing down is quick, visible and reversible.'},
-    {t:'Product detail', d:'Gave imagery and specification the room to do the work.'},
-    {t:'Checkout', d:'Kept the path from cart to confirmation short and legible.'}
+    {t:'Rules before screens', d:'Wrote four rules first (the four above) so I had something to argue with whenever a screen got complicated.'},
+    {t:'Two brands, tested on dull screens', d:'Built two brand directions as design tokens and kept both working on the seat map, the fare breakdown and the declined-payment screen, not just on a moodboard.'},
+    {t:'Prototype first', d:'Worked in a clickable prototype from day one, building journeys in order of risk: booking and payment first, then trips, loyalty and corporate travel.'},
+    {t:'Tap every button', d:'Went through the app button by button asking “what happens when I tap this?”, then built what was missing. Most of the best details came from this pass.'},
+    {t:'Library and handoff', d:'Figma library with 38 variables, 12 text styles and 11 core components, plus the onboarding flow as 26 editable frames.'}
   ],
   decisions:[
-    {d:'Specifications framed as comparison, not as a dump',
-     why:'Case diameter means nothing on its own and everything next to another watch. Surfacing the few attributes that actually separate pieces, in consistent positions across the catalogue, does more than reproducing the full supplier table on every page.',
-     trade:'Complete specification still has to exist, but demoted — which risks frustrating the small number of buyers who came for it.'},
-    {d:'Filters built to be undone',
-     why:'Over a long decision window people narrow, change their mind and widen again. Filters stay visible, are individually removable, and survive a back-navigation instead of resetting the browse from scratch.',
-     trade:'More persistent chrome on the listing page, competing with product imagery.'}
+    {d:'Show the all-in price first',
+     why:'Most airline apps show a low base fare and add the rest over four screens. It looks cheaper on the list and feels dishonest at payment. Here the first number already includes taxes and a bag, and the fare screen breaks that same total down, so nothing new appears when you pay.',
+     trade:'The first price looks higher than a competitor’s headline fare.'},
+    {d:'Payment isn’t a ticket',
+     why:'A card payment and a ticket are two separate systems, and tickets can take minutes. Instead of one spinner, each step between “Pay” and a boarding pass gets its own screen that answers two questions: has my money gone, and do I have a seat? A declined card says “No money has left your account” and how long the fare is still held.',
+     trade:'Far more states to design and write than a simple success or error.'},
+    {d:'Ask for the account last',
+     why:'The first onboarding was four slides and a sign-in wall. I rebuilt it as a ladder of small asks, where each step costs a little more and visibly changes the app. The account comes last, and “Continue as a guest” gets the same weight as sign-in. Returning users skip onboarding and see their next trip.',
+     trade:'Fewer people may sign up early. The bet is that more sign up when they book.'},
+    {d:'Two dashboards for corporate travel',
+     why:'Travellers and travel managers first shared one dashboard. It looked tidy and was wrong: showing a traveller company spend is a permissions leak. They now get separate views, and approvals come with a 10-minute undo, written on the success screen.',
+     trade:'Two layouts to maintain, and a third role (the travel arranger) still to design.'}
   ],
-  designCaps:['Catalogue and filtering','Product detail and comparison'],
-  designArt:['gurkha', ['Browse','Filter','Compare','Cart','Checkout']],
-  outcome:{note:'Detailed outcomes for this engagement aren’t public. Happy to walk through the work directly.'},
-  reflection:'Categories like this reward restraint. Everything added to a product page competes with the photograph, and the photograph is what closes the sale.'
-},
-{
-  num:'05', id:'recon', name:'Reconwithme', category:'Blockchain', discipline:'UI/UX design',
-  role:'UI/UX Designer', company:'NASSEC Pvt. Ltd.', year:'2022 — 2023',
-  desc:'NFT marketplace built for people who aren’t crypto-native.',
-  art:'recon',
-  tagline:'Web3, minus the vocabulary test — but with the consequences kept visible.',
-  overview:'Reconwithme is an NFT marketplace. The design goal was to make blockchain interactions usable by mainstream users rather than only by people already fluent in wallets, gas and chains.',
-  challenge:'Web3 products expose their own plumbing. Someone who simply wants to buy or list an item is asked to understand wallets, networks, gas and signatures before they can do anything — and unlike ordinary e-commerce, every one of those steps is final. Hiding the complexity is the easy mistake. The goal was to remove the vocabulary while making the consequences more visible, not less.',
-  constraints:[
-    {b:'Audience', t:'Mainstream users with no prior wallet experience.'},
-    {b:'Finality', t:'Actions are irreversible and cost real money when they go wrong.'},
-    {b:'Cost', t:'Network fees move for reasons outside the product’s control.'}
+  /* real screens from the prototype, in assets/img/himal/ */
+  thumb:['home','results','boarding-pass'],
+  gallery:[
+    {t:'Onboarding', d:'Small asks that each change the app, with the account asked last.', shots:[
+      ['onboarding-language','Language, with each option in its own script'],
+      ['onboarding-notifications','Alerts explained before the system prompt'],
+      ['onboarding-account','Guest gets the same weight as sign-in'],
+      ['returning-user','Returning users skip straight to their trip']]},
+    {t:'Booking', d:'The first price already includes taxes and a bag.', shots:[
+      ['home','Home, as a guest'],
+      ['results','All-in fares, with baggage on every card'],
+      ['fare-details','The same total, itemised'],
+      ['seat-map','Seat map with cabin zones and a legend']]},
+    {t:'Paying and ticketing', d:'Every step says whether your money has gone and whether you have a seat.', shots:[
+      ['held-fare','A visible 20-minute hold'],
+      ['payment-declined','“No money has left your account.”'],
+      ['paid-not-ticketed','Paid, ticket still being issued'],
+      ['boarding-pass','Boarding pass']]},
+    {t:'Changing plans', d:'Costs are shown before you tap.', shots:[
+      ['cancel-booking','Line-by-line refund, voucher offered not pushed'],
+      ['modify-booking','Every option shows its cost']]},
+    {t:'Corporate travel', d:'Separate views for travellers and managers.', shots:[
+      ['corporate-traveller','Traveller: own trips, no company spend'],
+      ['corporate-manager','Manager: pending approvals first'],
+      ['approval-request','Over-cap amount and policy check'],
+      ['after-approving','What happens next, with a 10-minute undo']]},
+    {t:'Loading and offline', d:'The in-between moments still look like the app.', shots:[
+      ['loading','A skeleton that matches the real layout'],
+      ['offline','Offline, with boarding passes still available']]}
   ],
-  approach:[
-    {t:'Plain-language model', d:'Renamed and resequenced the flow around what the person is doing, keeping technical detail available but out of the main line.'},
-    {t:'Onboarding', d:'Designed a first-run path that reaches a first successful action with the fewest unexplained steps.'},
-    {t:'Marketplace UI', d:'Designed browsing, listing and asset detail around the item rather than the chain.'}
-  ],
-  decisions:[
-    {d:'The flow is named after what the person is doing',
-     why:'“Connect wallet”, “approve” and “sign” describe the machinery, not the intent. Sequencing and labelling around buy, list and own lets people carry over expectations from ordinary shopping, with the technical terms present as secondary detail for those who want them.',
-     trade:'Users who already know the standard Web3 vocabulary have to translate once on arrival.'},
-    {d:'Total cost shown before the signature, not after',
-     why:'A price quoted separately from fees is how people end up paying more than they agreed to, and in this category they cannot get it back. Confirmation states one number, with the breakdown expandable underneath it.',
-     trade:'Fees move, so the figure needs re-quoting if the person hesitates — which itself has to be explained rather than silently changing.'},
-    {d:'Irreversible actions get different visual weight',
-     why:'Most interfaces flatten every button into the same affordance, which is dangerous when one of them is permanent. Actions that cannot be undone read differently and state plainly what will be final.',
-     trade:'A deliberately slower flow at exactly the moment people want speed.'}
-  ],
-  designCaps:['Marketplace browse and asset detail','First-run onboarding path','Activity and transaction view'],
-  designArt:['recon', ['Enter','Browse','Review','Confirm','Own'], 'system'],
-  outcome:{stats:[{v:'5,000+', l:'users onboarded in the first month'},{v:'95%', l:'onboarding completion rate'}], note:'Figures as reported on prepesh.com.'},
-  reflection:'Most of the difficulty in Web3 UX is translation, not interaction. Once the language was right, the screens got simpler on their own.'
-},
-{
-  num:'06', id:'deerhold', name:'Deerhold', category:'Enterprise', discipline:'UX audit & redesign',
-  role:'UI/UX Designer', company:'', year:'',
-  desc:'Website and HR management system for an enterprise team.',
-  art:'deerhold',
-  tagline:'A tool people have to use, made worth using.',
-  overview:'A UX audit and redesign covering the Deerhold website and its HR management system, focused on the workflows employees and administrators run repeatedly.',
-  challenge:'HR systems accumulate. Leave, attendance, records, approvals and payroll inputs each arrive as a reasonable addition, and together they produce screens that ask an employee to understand the company’s data model in order to book two days off. The cost is spread thinly across everyone and concentrated on the HR team, which is why it rarely gets fixed — nobody owns the problem, and every individual instance of it looks small.',
-  constraints:[
-    {b:'Users', t:'Employees, managers and HR working the same system with different frequencies.'},
-    {b:'Frequency', t:'Most tasks are rare for an individual and constant for HR.'},
-    {b:'Scope', t:'The public website and the internal product had drifted apart.'}
-  ],
-  approach:[
-    {t:'Audit', d:'Went through the existing product task by task to find where people stall, backtrack, or need outside knowledge to proceed — then ranked those by how often they occur and what each one costs.'},
-    {t:'Restructure', d:'Reorganised workflows around completion rather than around the database.'},
-    {t:'Consistency', d:'Aligned website and product so the two don’t read as different companies.'}
-  ],
-  decisions:[
-    {d:'Reorganised around completion, not around record type',
-     why:'Screens had been grouped by the shape of the data, so finishing a single task meant visiting three of them. Grouping by what the person is trying to finish cut the traversal, even though it meant the same record now appears in more than one place.',
-     trade:'Duplicated surfaces have to stay in sync, which pushes complexity into the build.'},
-    {d:'Approvals as a queue with the common action in reach',
-     why:'Managers approve in batches, usually on a phone, usually between two other things. A queue with the routine action immediately available beats a notification that drops them into a full record they have to read first.',
-     trade:'Genuine exceptions need a deliberate route off the fast path, or the queue makes it too easy to approve without looking.'},
-    {d:'Balances shown inside the request, not on another screen',
-     why:'People were asking HR how much leave they had left because the number lived somewhere other than the form. Putting it where the decision happens removed the most common inbound question.',
-     trade:'The balance has to be correct in real time, which raises the bar on the data behind it.'}
-  ],
-  designCaps:['HR workflows — requests, approvals, records','Reduced-load task screens','Website and product alignment'],
-  designArt:['deerhold', ['Request','Review','Approve','Record'], 'system'],
-  outcome:{stats:[{v:'35%', l:'improvement in task completion rate'},{v:'50%', l:'improvement in user satisfaction'}], note:'Figures as reported on prepesh.com.'},
-  reflection:'An audit is only useful if it names the cost of each problem. Listing issues changes nothing; ranking them changes a roadmap.'
+  outcome:{stats:[{v:'150+', l:'screens and states in one clickable prototype'},{v:'2', l:'brand directions carried through every screen'},{v:'0', l:'dead-end buttons, checked after each round'}],
+    note:'A concept, not yet tested with travellers, so there are no outcome metrics. Next I’d test the onboarding order, whether people can read the “paid, not ticketed” screen, and whether the all-in price scares people off at the results list.'},
+  reflection:'I’d pick the brand sooner, since keeping both working doubled the checking on every screen. And I’d do the button-by-button pass after each journey instead of saving it for the end, because that’s where the most interesting problems were.'
 }
 ];
 
@@ -370,15 +327,18 @@ const experience = [
 /* ═══════════════════════════════════════════════════════════
    3. RENDER — work list + experience
    ═══════════════════════════════════════════════════════════ */
-const reducedMo = matchMedia('(prefers-reduced-motion: reduce)');
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-const artFor = p => plates[p.art] ? plates[p.art]() : plates.system();
+const shotSrc = (p, name) => `assets/img/${p.id}/${name}.webp`;
+const shotDims = (p, name) => { const [w, h] = (p.sizes && p.sizes[name]) || [600, 1298]; return `width="${w}" height="${h}"`; };
+const artFor = p => p.thumb
+  ? `<span class="row__shots">${p.thumb.map(n=>`<img src="${shotSrc(p, n)}" alt="" ${shotDims(p, n)} loading="lazy">`).join('')}</span>`
+  : plates[p.art] ? plates[p.art]() : plates.system();
 
 const workList = document.getElementById('work-list');
 
 workList.innerHTML = `<div class="index__labels" aria-hidden="true">
     <span>No.</span><span>Project</span><span>Role</span><span>Sector</span><span>Discipline</span>
-    <span class="h-year">Year</span><span class="h-prev">Preview</span>
+    <span class="h-prev">Preview</span>
   </div>` +
   projects.map((p,i)=>`
   <button class="row" data-i="${i}" aria-haspopup="dialog" aria-label="${esc(p.name)}, ${esc(p.category)}. Open case study">
@@ -391,15 +351,15 @@ workList.innerHTML = `<div class="index__labels" aria-hidden="true">
     <span class="cell cell--role">${esc(p.role)}${p.company ? `<small>${esc(p.company)}</small>` : ''}</span>
     <span class="cell cell--sector">${esc(p.category)}</span>
     <span class="cell cell--disc">${esc(p.discipline)}</span>
-    <span class="cell cell--year${p.year ? '' : ' is-empty'}">${p.year ? esc(p.year.split(' — ')[0]) + (p.year.includes('—') ? `<small>to ${esc(p.year.split(' — ')[1])}</small>` : '') : ''}</span>
     <span class="row__thumb" aria-hidden="true">${artFor(p)}</span>
   </button>`).join('');
 
 const rows = [...workList.querySelectorAll('.row')];
 let active = -1;
 
+/* -1 clears the highlight */
 function setActive(i){
-  if(i === active || !projects[i]) return;
+  if(i === active || (i !== -1 && !projects[i])) return;
   active = i;
   rows.forEach((r,n)=>r.classList.toggle('is-active', n === i));
 }
@@ -410,7 +370,8 @@ xpList.innerHTML = experience.map((x,i)=>`
     <h3><button class="xp__btn" aria-expanded="false" aria-controls="xp-p-${i}">
       <span class="xp__co">${esc(x.co)}</span>
       <span class="xp__role">${esc(x.role)}</span>
-      <span class="xp__date">${esc(x.date)}<span class="xp__sign" aria-hidden="true"></span></span>
+      <span class="xp__date">${esc(x.date)}</span>
+      <span class="xp__sign" aria-hidden="true"></span>
     </button></h3>
     <div class="xp__panel" id="xp-p-${i}"><div class="xp__body">
       <p>${esc(x.body)}</p>
@@ -428,8 +389,8 @@ requestAnimationFrame(()=>document.getElementById('hero').classList.add('ready')
 
 /* nav state */
 const nav = document.getElementById('nav');
-let lastY = 0;
-const onScroll = () => { nav.classList.toggle('is-stuck', window.scrollY > 24); lastY = window.scrollY; };
+/* while an overlay locks the page, scrollY reads 0; keep the nav as it was */
+const onScroll = () => { if(!document.body.classList.contains('is-locked')) nav.classList.toggle('is-stuck', window.scrollY > 24); };
 addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
 /* scroll reveal */
@@ -460,11 +421,15 @@ const applyTheme = mode => {
   const meta = document.querySelector('meta[name="theme-color"]:not([media])');
   if (meta) meta.setAttribute('content', dark ? '#121210' : '#FFFFFF');
 };
-applyTheme(sysDark.matches ? 'dark' : 'light');
-sysDark.addEventListener('change', e => { if(!themeBtn.dataset.userSet) applyTheme(e.matches ? 'dark' : 'light'); });
+/* a saved choice wins over the system setting; storage can be unavailable (private mode, blocked site data) */
+const savedTheme = (()=>{ try { return localStorage.getItem('theme'); } catch(e){ return null; } })();
+applyTheme(savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : (sysDark.matches ? 'dark' : 'light'));
+sysDark.addEventListener('change', e => { if(!savedTheme && !themeBtn.dataset.userSet) applyTheme(e.matches ? 'dark' : 'light'); });
 themeBtn.addEventListener('click', ()=>{
   themeBtn.dataset.userSet = '1';
-  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  try { localStorage.setItem('theme', next); } catch(e){}
 });
 
 /* experience accordion */
@@ -477,18 +442,26 @@ xpList.addEventListener('click', e=>{
 });
 addEventListener('resize', ()=>document.querySelectorAll('.xp__item.is-open .xp__panel').forEach(p=>{p.style.height = p.firstElementChild.offsetHeight + 'px';}));
 
-/* index: hover, focus and keyboard browsing */
-setActive(0);
-
+/* index: hover, focus and keyboard browsing.
+   The highlight follows a mouse or the keyboard only: a tap, or focus handed back
+   after closing a case study, must not leave a row looking selected. */
 const indexEl = document.querySelector('.index');
-workList.addEventListener('focusin', ()=>indexEl.classList.add('is-kb'));
 workList.addEventListener('focusout', e=>{
-  if(!e.relatedTarget || !workList.contains(e.relatedTarget)) indexEl.classList.remove('is-kb');
+  if(!e.relatedTarget || !workList.contains(e.relatedTarget)){ indexEl.classList.remove('is-kb'); setActive(-1); }
+});
+workList.addEventListener('pointerleave', e=>{
+  if(e.pointerType === 'touch') return;
+  const f = rows.indexOf(document.activeElement);   /* fall back to the keyboard position, if any */
+  setActive(f > -1 && rows[f].matches(':focus-visible') ? f : -1);
 });
 
 rows.forEach((row,i)=>{
-  row.addEventListener('pointerenter', ()=>setActive(i));
-  row.addEventListener('focus', ()=>setActive(i));
+  row.addEventListener('pointerenter', e=>{ if(e.pointerType !== 'touch') setActive(i); });
+  row.addEventListener('focus', ()=>{
+    if(!row.matches(':focus-visible')) return;
+    indexEl.classList.add('is-kb');
+    setActive(i);
+  });
   row.addEventListener('keydown', e=>{
     const map = {ArrowDown:1, ArrowRight:1, ArrowUp:-1, ArrowLeft:-1};
     if(map[e.key]){
@@ -503,7 +476,7 @@ rows.forEach((row,i)=>{
 /* ── CASE STUDY OVERLAY ── */
 const cs = document.getElementById('cs'), csInner = document.getElementById('cs-inner'),
       csPanel = document.getElementById('cs-panel'), csClose = document.getElementById('cs-close');
-let lastFocus = null, savedY = 0, current = -1;
+let lastFocus = null, savedY = 0, current = -1, openedByPointer = false;
 
 const stat = s => `<div class="stat"><b>${esc(s.v)}</b><span>${esc(s.l)}</span></div>`;
 
@@ -549,18 +522,31 @@ function buildCase(p, i){
       <div class="decs">${p.decisions.map(d=>`<div class="dec">
         <h4>${esc(d.d)}</h4>
         <div><p>${esc(d.why)}</p>
-        <div class="dec__trade"><b>Trade-off</b><span>${esc(d.trade)}</span></div></div>
+        ${d.trade ? `<div class="dec__trade"><b>Trade-off</b><span>${esc(d.trade)}</span></div>` : ''}</div>
       </div>`).join('')}</div>
     </section>` : ''}
 
-    <section class="blk wrap" data-stagger style="transition-delay:.24s">
+    ${p.gallery ? `<section class="blk wrap" data-stagger style="transition-delay:.24s">
+      <h3>The design</h3>
+      <p class="gal__hint">Select any screen to see it larger.</p>
+      <div class="gal">${p.gallery.map(g=>`
+        <div class="gal__grp">
+          <div class="gal__head"><h4>${esc(g.t)}</h4><p>${esc(g.d)}</p></div>
+          <div class="gal__row">${g.shots.map(([n, cap])=>`
+            <figure class="shot"><button class="shot__btn" type="button" data-shot="${n}" aria-label="View larger: ${esc(cap)}">
+              <img src="${shotSrc(p, n)}" alt="${esc(cap)}" ${shotDims(p, n)} loading="lazy"></button>
+              <figcaption>${esc(cap)}</figcaption></figure>`).join('')}
+          </div>
+        </div>`).join('')}
+      </div>
+    </section>` : `<section class="blk wrap" data-stagger style="transition-delay:.24s">
       <h3>The design</h3>
       <div class="plates">
         ${plateFig(p.designArt[0], p.designCaps[0])}
         ${p.designArt[1] ? plateFig(p.designArt[1], p.designCaps[1]) : ''}
         ${p.designArt[2] ? plateFig(p.designArt[2], p.designCaps[2]) : ''}
       </div>
-    </section>
+    </section>`}
 
     <section class="blk wrap" data-stagger style="transition-delay:.28s">
       <div class="blk__grid"><p class="blk__label">Outcome</p>
@@ -607,6 +593,7 @@ function openCase(i){
 
 function closeCase(){
   if(!cs.classList.contains('is-open')) return;
+  closeShot();
   cs.classList.remove('is-in');
   cs.classList.remove('is-open');
   cs.setAttribute('aria-hidden','true');
@@ -616,8 +603,11 @@ function closeCase(){
   window.scrollTo(0, savedY);
 
   setTimeout(()=>{ if(!cs.classList.contains('is-open')) csInner.innerHTML = ''; }, 500);
-  if(lastFocus) lastFocus.focus({preventScroll:true});
+  /* hand focus back for keyboard users; after a click or tap, do it without a focus ring or highlight */
+  if(lastFocus) lastFocus.focus({preventScroll:true, focusVisible:!openedByPointer});
+  if(openedByPointer){ setActive(-1); indexEl.classList.remove('is-kb'); }
   if(history.state && history.state.cs) history.back();
+  else if(location.hash) history.replaceState(null, '', location.pathname + location.search);
   current = -1;
 }
 
@@ -627,6 +617,7 @@ function launch(i){
 }
 workList.addEventListener('click', e=>{
   const row = e.target.closest('.row'); if(!row) return;
+  openedByPointer = e.detail > 0;   /* 0 when opened with Enter or Space */
   launch(+row.dataset.i);
 });
 
@@ -641,6 +632,7 @@ csInner.addEventListener('click', e=>{
     document.getElementById('cs-bar-num').textContent = projects[i].num;
     document.getElementById('cs-bar-name').textContent = projects[i].name;
     current = i;
+    history.replaceState(history.state, '', '#' + projects[i].id);
     requestAnimationFrame(()=>cs.classList.add('is-in'));
   }, 220);
 });
@@ -648,14 +640,97 @@ csInner.addEventListener('click', e=>{
 csClose.addEventListener('click', closeCase);
 cs.querySelector('[data-close]').addEventListener('click', closeCase);
 
-/* keyboard: ESC closes; Tab is trapped inside the overlay */
+/* ── RESUME POPUP ── */
+const rs = document.getElementById('rs'), rsFrame = document.getElementById('rs-frame'),
+      rsEmpty = document.getElementById('rs-empty'), rsExt = document.getElementById('rs-ext');
+let rsLastFocus = null, rsY = 0;
+
+/* turn a Drive share link (…/file/d/ID/view or …?id=ID) into its embeddable preview URL */
+const drivePreview = url => {
+  const id = (url.match(/\/d\/([\w-]+)/) || url.match(/[?&]id=([\w-]+)/) || [])[1];
+  return id ? `https://drive.google.com/file/d/${id}/preview` : url;
+};
+
+function openResume(url){
+  const has = !!url && url !== '#';
+  rsLastFocus = document.activeElement;
+  rsFrame.hidden = !has; rsEmpty.hidden = has; rsExt.hidden = !has;
+  if(has){
+    rsExt.href = url;
+    const src = drivePreview(url);
+    if(rsFrame.getAttribute('src') !== src) rsFrame.src = src;
+  }
+  rs.setAttribute('aria-hidden','false');
+  rs.classList.add('is-open');
+  rsY = window.scrollY;
+  document.body.style.top = `-${rsY}px`;
+  document.body.classList.add('is-locked');
+  setTimeout(()=>rs.querySelector('.cs__close').focus({preventScroll:true}), 60);
+}
+
+function closeResume(){
+  if(!rs.classList.contains('is-open')) return;
+  rs.classList.remove('is-open');
+  rs.setAttribute('aria-hidden','true');
+  document.body.classList.remove('is-locked');
+  document.body.style.top = '';
+  window.scrollTo(0, rsY);
+  if(rsLastFocus) rsLastFocus.focus({preventScroll:true});
+}
+
+document.querySelectorAll('[data-resume]').forEach(a=>a.addEventListener('click', e=>{
+  e.preventDefault();
+  openResume(a.getAttribute('href'));
+}));
+rs.querySelectorAll('[data-rs-close]').forEach(el=>el.addEventListener('click', closeResume));
+
+/* ── SCREEN VIEWER (case-study galleries) ── */
+const lb = document.getElementById('lb'), lbImg = document.getElementById('lb-img'),
+      lbCap = document.getElementById('lb-cap'), lbCount = document.getElementById('lb-count');
+let lbShots = [], lbIdx = 0, lbFrom = null;
+
+function showShot(i){
+  lbIdx = (i + lbShots.length) % lbShots.length;
+  const b = lbShots[lbIdx], img = b.querySelector('img');
+  lbImg.src = img.src; lbImg.alt = img.alt;
+  lbCap.textContent = img.alt;
+  lbCount.textContent = `${lbIdx + 1} / ${lbShots.length}`;
+}
+function openShot(btn){
+  lbShots = [...csInner.querySelectorAll('.shot__btn')];
+  lbFrom = btn;
+  showShot(lbShots.indexOf(btn));
+  lb.setAttribute('aria-hidden','false');
+  lb.classList.add('is-open');
+  setTimeout(()=>lb.querySelector('.lb__close').focus({preventScroll:true}), 40);
+}
+function closeShot(){
+  if(!lb.classList.contains('is-open')) return;
+  lb.classList.remove('is-open');
+  lb.setAttribute('aria-hidden','true');
+  if(lbFrom) lbFrom.focus({preventScroll:true});
+}
+csInner.addEventListener('click', e=>{ const b = e.target.closest('.shot__btn'); if(b) openShot(b); });
+lb.addEventListener('click', e=>{
+  if(e.target.closest('[data-lb-close]')) return closeShot();
+  if(e.target.closest('[data-lb-prev]')) return showShot(lbIdx - 1);
+  if(e.target.closest('[data-lb-next]')) return showShot(lbIdx + 1);
+});
+
+/* keyboard: ESC closes; Tab is trapped inside whichever overlay is open */
 addEventListener('keydown', e=>{
   if(e.key === 'Escape'){
     if(document.body.classList.contains('menu-open')) return setMenu(false);
+    if(lb.classList.contains('is-open')) return closeShot();
+    if(rs.classList.contains('is-open')) return closeResume();
     if(cs.classList.contains('is-open')) return closeCase();
   }
-  if(e.key === 'Tab' && cs.classList.contains('is-open')){
-    const f = cs.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  if(lb.classList.contains('is-open') && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')){
+    e.preventDefault(); return showShot(lbIdx + (e.key === 'ArrowRight' ? 1 : -1));
+  }
+  const overlay = lb.classList.contains('is-open') ? lb : rs.classList.contains('is-open') ? rs : cs.classList.contains('is-open') ? cs : null;
+  if(e.key === 'Tab' && overlay){
+    const f = [...overlay.querySelectorAll('button, [href], iframe, input, select, textarea, [tabindex]:not([tabindex="-1"])')].filter(el=>el.offsetParent);
     if(!f.length) return;
     const first = f[0], last = f[f.length - 1];
     if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
